@@ -18,8 +18,10 @@ const CustomerComplainhtmlForm = () => {
 
   const onChangeCategories = (event) => {
     const categories = fetchedCategories
-      .filter((category) => category.id === parseInt(event.target.value))
-    setExtraFields(prev => [...prev, ...categories]);
+      .find((category) => category.id === parseInt(event.target.value))
+    categories.key = extraFields.length;
+    console.log(categories)
+    setExtraFields(prev => [...prev, categories]);
   }
 
   return (
@@ -63,6 +65,10 @@ const CustomerComplainhtmlForm = () => {
             <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the issue.</p>
           </div>
           <ExtraFields extraFields={extraFields} />
+        </div>
+
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
       </div>
     </form >
