@@ -1,38 +1,63 @@
 'use client'
 
-import { useState } from "react"
-import { CATEGORIES } from "@/constants/globals";
+import { useEffect, useState } from "react"
+import { CATEGORIES, DROPDOWN, FILE, MULTIFILE, NUMBER, TEXT, TEXTAREA } from "@/constants/globals";
 import TextInput from "../TextInput";
 import TextArea from "../TextArea";
 import Label from "../Label";
 import Dropdown from "../Dropdown";
 
 const CustomerComplainhtmlForm = () => {
+  const [fetchedCategories, setFetchedCategories] = useState([]);
   const [extraFields, setExtraFields] = useState([]);
 
+  useEffect(() => {
+    setFetchedCategories(CATEGORIES)
+  }, [])
+
   const onChangeCategories = (event) => {
-    setExtraFields(prev => {
-      const lastIndex = prev.length;
-      return [...prev, { key: lastIndex, value: event.target.value }]
-    });
+    console.log('ONCHANGE')
+    const categories = fetchedCategories.filter((category) => category.id === parseInt(event.target.value))
+    setExtraFields(prev => [...prev, ...categories]);
+  }
+
+  const renderInputBaseOnCategory = (category) => {
+    const { type, id, label } = category;
+    if (type === FILE) {
+      return <TextInput
+        key={id}
+        name={`${label}-${id}`}
+        value={null}
+        id={id}
+        autoComplete={label}
+        inputType={'file'}
+      />
+    }
+    if (type === MULTIFILE) {
+    }
+    if (type === TEXTAREA) {
+    }
+    if (type === TEXT) {
+    }
+    if (type === DROPDOWN) {
+    }
+    if (type === NUMBER) {
+    }
   }
 
   const renderExtraFields = () => {
     return extraFields.length > 0
       && extraFields.map(field => (
         <>
-          <div class="sm:col-span-3">
-            <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-            <div class="mt-2">
-              <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          <div className="sm:col-span-3">
+            <Label name={'name'} />
+            <div className="mt-2">
+              <input type="text" name="first-name" id="first-name" autocomplete="given-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
           </div>
-
-          <div class="sm:col-span-3">
-            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Value</label>
-            <div class="mt-2">
-              <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
+          <div className="sm:col-span-3">
+            <Label name={'value'} />
+            {renderInputBaseOnCategory(field)}
           </div>
         </>
       ));

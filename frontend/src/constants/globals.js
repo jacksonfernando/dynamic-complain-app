@@ -1,36 +1,60 @@
+const FILE = "file";
+
+const MULTIFILE = "mutlifile";
+
+const DROPDOWN = "dropdown";
+
+const TEXT = "text";
+
+const TEXTAREA = "textarea";
+
+const NUMBER = "number";
+
 const CATEGORIES = [
   {
     id: 1,
-    label: 'Single file image',
-    value: 'file',
+    label: 'Prove',
+    type: FILE,
+    value: null,
   },
   {
     id: 2,
-    label: 'Multi file image',
-    value: 'multifile'
+    label: 'Proves',
+    type: MULTIFILE,
+    value: null
   },
   {
     id: 3,
-    label: 'Dropdown',
-    value: 'dropdown'
+    label: 'Bank',
+    type: DROPDOWN,
+    value: [{ label: 'BCA', value: 'bca' }]
   },
   {
     id: 4,
-    label: 'Text',
-    value: 'text'
+    label: 'Bank Account',
+    type: TEXT,
+    value: null
   },
   {
     id: 5,
-    label: 'Textarea',
-    value: 'textarea'
+    label: 'Remark',
+    type: TEXTAREA,
+    value: null
   },
   {
-    id: 5,
-    label: 'Number',
-    value: 'number'
+    id: 6,
+    label: 'Amount',
+    type: NUMBER,
+    value: null
   }
 ]
 
 export {
-  CATEGORIES
+  CATEGORIES,
+  FILE,
+  MULTIFILE,
+  DROPDOWN,
+  TEXT,
+  TEXTAREA,
+  NUMBER
 }
