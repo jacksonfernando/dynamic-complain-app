@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from "react"
-import { categories } from "@/constants/globals";
+import { CATEGORIES } from "@/constants/globals";
 import TextInput from "../TextInput";
 import TextArea from "../TextArea";
 import Label from "../Label";
+import Dropdown from "../Dropdown";
 
 const CustomerComplainhtmlForm = () => {
   const [extraFields, setExtraFields] = useState([]);
@@ -61,15 +62,12 @@ const CustomerComplainhtmlForm = () => {
           <div className="col-span-full">
             <Label name={"Category"} />
             <div className="mt-2">
-              <select onChange={(event) => onChangeCategories(event)} id="country" name="country" autoComplete="country-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                {
-                  categories.map(category => {
-                    return (
-                      <option value={category.value}>{category.label}</option>
-                    )
-                  })
-                }
-              </select>
+              <Dropdown
+                name={"category"}
+                id={"category"}
+                onChangeEvent={onChangeCategories}
+                options={CATEGORIES}
+              />
             </div>
           </div>
 
@@ -83,7 +81,7 @@ const CustomerComplainhtmlForm = () => {
           {renderExtraFields()}
         </div>
       </div>
-    </form>
+    </form >
   )
 }
 
