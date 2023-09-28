@@ -4,6 +4,7 @@ import { useState } from "react"
 import { categories } from "@/constants/globals";
 import TextInput from "../TextInput";
 import TextArea from "../TextArea";
+import Label from "../Label";
 
 const CustomerComplainhtmlForm = () => {
   const [extraFields, setExtraFields] = useState([]);
@@ -44,21 +45,21 @@ const CustomerComplainhtmlForm = () => {
 
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="col-span-full">
-            <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
+            <Label name={"Full name"} />
             <div className="mt-2">
               <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"text"} />
             </div>
           </div>
 
           <div className="col-span-full">
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+            <Label name={"Email"} />
             <div className="mt-2">
               <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"email"} />
             </div>
           </div>
 
           <div className="col-span-full">
-            <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">Category</label>
+            <Label name={"Category"} />
             <div className="mt-2">
               <select onChange={(event) => onChangeCategories(event)} id="country" name="country" autoComplete="country-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                 {
@@ -73,7 +74,7 @@ const CustomerComplainhtmlForm = () => {
           </div>
 
           <div className="col-span-full">
-            <label htmlFor="issue" className="block text-sm font-medium leading-6 text-gray-900">Issue description</label>
+            <Label name={"Issue Desccription"} />
             <div className="mt-2">
               <TextArea id={"issue"} name={"issue"} />
             </div>
