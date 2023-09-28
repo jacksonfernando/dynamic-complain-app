@@ -13,37 +13,37 @@ const NUMBER = "number";
 const CATEGORIES = [
   {
     id: 1,
-    label: 'Prove',
+    label: 'Single file image',
     type: FILE,
     value: null,
   },
   {
     id: 2,
-    label: 'Proves',
+    label: 'Multiple file image',
     type: MULTIFILE,
     value: null
   },
   {
     id: 3,
-    label: 'Bank',
+    label: 'Dropdown selection',
     type: DROPDOWN,
     value: [{ label: 'BCA', value: 'bca' }]
   },
   {
     id: 4,
-    label: 'Bank Account',
+    label: 'Text',
     type: TEXT,
     value: null
   },
   {
     id: 5,
-    label: 'Remark',
+    label: 'Textarea',
     type: TEXTAREA,
     value: null
   },
   {
     id: 6,
-    label: 'Amount',
+    label: 'Number',
     type: NUMBER,
     value: null
   }
