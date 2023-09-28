@@ -1,24 +1,10 @@
 'use client'
 
 import { useState } from "react"
+import { categories } from "@/constants/globals";
+import TextInput from "../TextInput";
+import TextArea from "../TextArea";
 
-const categories = [
-  {
-    id: 1,
-    label: 'Single File',
-    value: 'file',
-  },
-  {
-    id: 2,
-    label: 'Multi file',
-    value: 'multifile'
-  },
-  {
-    id: 3,
-    label: 'Text area',
-    value: 'textarea'
-  }
-]
 const CustomerComplainhtmlForm = () => {
   const [extraFields, setExtraFields] = useState([]);
 
@@ -31,12 +17,22 @@ const CustomerComplainhtmlForm = () => {
 
   const renderExtraFields = () => {
     return extraFields.length > 0
-      && extraFields.map(field => (<div className="col-span-full">
-        <div className="mt-2">
-          <input type="text" name="first-name" id="full-name" autoComplete="full-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          <input type={field} name="first-name" id="full-name" autoComplete="full-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-        </div>
-      </div>
+      && extraFields.map(field => (
+        <>
+          <div class="sm:col-span-3">
+            <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+            <div class="mt-2">
+              <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Value</label>
+            <div class="mt-2">
+              <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            </div>
+          </div>
+        </>
       ));
   }
 
@@ -50,14 +46,14 @@ const CustomerComplainhtmlForm = () => {
           <div className="col-span-full">
             <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
             <div className="mt-2">
-              <input type="text" name="first-name" id="full-name" autoComplete="full-name" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"text"} />
             </div>
           </div>
 
           <div className="col-span-full">
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
             <div className="mt-2">
-              <input id="email" name="email" type="email" autoComplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"email"} />
             </div>
           </div>
 
@@ -77,9 +73,9 @@ const CustomerComplainhtmlForm = () => {
           </div>
 
           <div className="col-span-full">
-            <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">Issue description</label>
+            <label htmlFor="issue" className="block text-sm font-medium leading-6 text-gray-900">Issue description</label>
             <div className="mt-2">
-              <textarea id="about" name="about" rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+              <TextArea id={"issue"} name={"issue"} />
             </div>
             <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the issue.</p>
           </div>
