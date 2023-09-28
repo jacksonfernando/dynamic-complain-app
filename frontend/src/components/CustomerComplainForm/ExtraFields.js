@@ -1,15 +1,16 @@
+import { renderErrorText } from "@/utils/global";
 import Dropdown from "../Dropdown";
 import Label from "../Label";
 import TextArea from "../TextArea";
 import TextInput from "../TextInput";
 import { DROPDOWN, FILE, MULTIFILE, NUMBER, TEXT, TEXTAREA } from "@/constants/globals";
 
-const ExtraFields = ({ fields, register }) => {
+const ExtraFields = ({ fields, register, errors }) => {
   const renderInputBaseOnCategory = (field, index) => {
     const { id, value, type, label } = field;
     const registerKey = register(`extraFields.${index}.value`, { required: true });
-
     const customKey = id;
+
     if (type === FILE) {
       return <TextInput
         key={customKey}
@@ -76,28 +77,38 @@ const ExtraFields = ({ fields, register }) => {
     }
   };
 
-  return fields.map((field, index) => (
-    <>
-      <div className="sm:col-span-3" >
-        <Label name={'Field Name'} />
-        <div className="mt-2">
-          <TextInput
-            key={field.id}
-            name={'field-name'}
-            inputType={'text'}
-            autoComplete={'field-name'}
-            additionalProps={{ ...register(`extraFields.${index}.fieldName`, { required: true }) }}
+  return fields.map((field, index) => {
+    return (
+      <>
+        <div className="sm:col-span-3" >
+          <Label
+            name={'Field Name'}
+            key={`label-${field.id}`}
           />
+          <div className="mt-2">
+            <TextInput
+              key={field.id}
+              name={'field-name'}
+              inputType={'text'}
+              autoComplete={'field-name'}
+              additionalProps={{ ...register(`extraFields.${index}.fieldName`, { required: true }) }}
+            />
+            {renderErrorText(errors?.extraFields?.[index].fieldName, 'Field name')}
+          </div>
         </div>
-      </div>
-      <div className="sm:col-span-3">
-        <Label name={'Value'} />
-        <div className="mt-2">
-          {renderInputBaseOnCategory(field, index)}
+        <div className="sm:col-span-3" >
+          <Label
+            name={'Value'}
+            key={`label-${field.id}`}
+          />
+          <div className="mt-2">
+            {renderInputBaseOnCategory(field, index)}
+          </div>
+          {renderErrorText(errors?.extraFields?.[index].value, field.label)}
         </div>
-      </div>
-    </>
-  ))
+      </>
+    )
+  })
 }
 
 export default ExtraFields

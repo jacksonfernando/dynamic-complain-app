@@ -1,7 +1,7 @@
-const Dropdown = ({ onChangeEvent, id, name, autoComplete, options, additionalProps }) => {
+const Dropdown = ({ onChange, id, name, autoComplete, options, additionalProps }) => {
   return (
     <select
-      onChange={(event) => onChangeEvent(event)}
+      onChange={onChange}
       id={id}
       name={name}
       autoComplete={autoComplete}
@@ -13,7 +13,6 @@ const Dropdown = ({ onChangeEvent, id, name, autoComplete, options, additionalPr
       {
         options.map(option => {
           return (
-
             <option key={`option-${option.id}`} value={option.id}>{option.label}</option>
           )
         })

@@ -1,21 +1,23 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { CATEGORIES } from "@/constants/globals";
-import TextInput from "../TextInput";
-import TextArea from "../TextArea";
-import Label from "../Label";
-import Dropdown from "../Dropdown";
-import ExtraFields from "./ExtraFields";
-import Button from "../Button";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useEffect, useState } from 'react'
+import { CATEGORIES } from '@/constants/globals';
+import TextInput from '../TextInput';
+import TextArea from '../TextArea';
+import Label from '../Label';
+import Dropdown from '../Dropdown';
+import ExtraFields from './ExtraFields';
+import Button from '../Button';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { renderErrorText } from '@/utils/global';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
-  const { control, register, handleSubmit } = useForm({
+  const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       fullName: '',
       email: '',
+      issueDescription: '',
       categories: fetchedCategories,
       extraFields: []
     }
@@ -23,16 +25,14 @@ const CustomerComplainForm = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "extraFields",
-    rules: {
-      required: true
-    }
+    name: 'extraFields',
   })
+
+  const { ref, onBlur, name: categoriesName } = register('categories');
 
   useEffect(() => {
     setFetchedCategories(CATEGORIES)
   }, [])
-
   const onSubmit = (data) => {
     console.log(data)
   }
@@ -45,67 +45,71 @@ const CustomerComplainForm = () => {
 
   const renderFullNameSection = () => (
     <>
-      <div className="col-span-full">
-        <Label name={"Full name"} />
-        <div className="mt-2">
+      <div className='col-span-full'>
+        <Label name={'Full name'} />
+        <div className='mt-2'>
           <TextInput
-            autoComplete={"full-name"}
-            name={"full-name"}
-            id="full-name"
-            inputType={"text"}
-            additionalProps={{ ...register("fullName", { required: true }) }}
+            autoComplete={'full-name'}
+            id='full-name'
+            inputType={'text'}
+            additionalProps={{ ...register('fullName', { required: true }) }}
           />
         </div>
+        {renderErrorText(errors.fullName, 'Full name')}
       </div>
     </>
   )
 
   const renderEmailSection = () => (
-    <div className="col-span-full">
-      <Label name={"Email"} />
-      <div className="mt-2">
+    <div className='col-span-full'>
+      <Label name={'Email'} />
+      <div className='mt-2'>
         <TextInput
-          autoComplete={"Email"}
-          name={"email"}
-          id="email"
-          inputType={"email"}
-          additionalProps={{ ...register("email", { required: true }) }}
+          autoComplete={'Email'}
+          inputType={'email'}
+          additionalProps={{ ...register('email', { required: true }) }}
         />
       </div>
+      {renderErrorText(errors.email, 'Email')}
     </div>
   )
 
   const renderCategoriesSection = () => (
-    <div className="col-span-full">
-      <Label name={"Category"} />
-      <div className="mt-2">
+    <div className='col-span-full'>
+      <Label name={'Category'} />
+      <div className='mt-2'>
         <Dropdown
-          name={"category"}
-          id={"category"}
-          onChangeEvent={onChangeCategories}
+          id={categoriesName}
+          name={categoriesName}
           options={CATEGORIES}
+          onChange={onChangeCategories}
+          additionalProps={{ ref: ref, onBlur: onBlur }}
         />
       </div>
     </div>
   )
 
   const renderIssueDescriptionSection = () => (
-    <div className="col-span-full">
-      <Label name={"Issue Desccription"} />
-      <div className="mt-2">
-        <TextArea id={"issue"} name={"issue"} />
+    <div className='col-span-full'>
+      <Label name={'Issue Description'} />
+      <div className='mt-2'>
+        <TextArea
+          name={'issue'}
+          additionalProps={{ ...register('issueDescription', { required: true }) }}
+        />
       </div>
-      <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the issue.</p>
+      {renderErrorText(errors.issueDescription, 'Issue Description')}
+      <p className='mt-3 text-sm leading-6 text-gray-600'>Write a few sentences about the issue.</p>
     </div>
   )
 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">Complain Form</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">Submit your complain here</p>
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div className='border-b border-gray-900/10 pb-12'>
+        <h2 className='text-base font-semibold leading-7 text-gray-900'>Complain Form</h2>
+        <p className='mt-1 text-sm leading-6 text-gray-600'>Submit your complain here</p>
+        <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
           {renderFullNameSection()}
           {renderEmailSection()}
           {renderCategoriesSection()}
@@ -114,10 +118,11 @@ const CustomerComplainForm = () => {
             fields={fields}
             control={control}
             register={register}
+            errors={errors}
           />
         </div>
       </div>
-      <div class="mt-6 flex items-center justify-end gap-x-6">
+      <div className='mt-6 flex items-center justify-end gap-x-6'>
         <Button text={'save'} type={'submit'} />
       </div>
     </form >
