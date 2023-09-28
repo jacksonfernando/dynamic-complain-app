@@ -8,20 +8,39 @@ import Label from "../Label";
 import Dropdown from "../Dropdown";
 import ExtraFields from "./ExtraFields";
 import Button from "../Button";
+import { useForm, useFieldArray } from "react-hook-form";
 
-const CustomerComplainhtmlForm = () => {
+const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
-  const [extraFields, setExtraFields] = useState([]);
+  const { control, register, handleSubmit } = useForm({
+    defaultValues: {
+      fullName: '',
+      email: '',
+      categories: fetchedCategories,
+      extraFields: []
+    }
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "extraFields",
+    rules: {
+      required: true
+    }
+  })
 
   useEffect(() => {
     setFetchedCategories(CATEGORIES)
   }, [])
 
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   const onChangeCategories = (event) => {
-    const categories = fetchedCategories
+    const category = fetchedCategories
       .find((category) => category.id === parseInt(event.target.value))
-    categories.key = extraFields.length;
-    setExtraFields(prev => [...prev, categories]);
+    append(category)
   }
 
   const renderFullNameSection = () => (
@@ -29,7 +48,13 @@ const CustomerComplainhtmlForm = () => {
       <div className="col-span-full">
         <Label name={"Full name"} />
         <div className="mt-2">
-          <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"text"} />
+          <TextInput
+            autoComplete={"full-name"}
+            name={"full-name"}
+            id="full-name"
+            inputType={"text"}
+            additionalProps={{ ...register("fullName", { required: true }) }}
+          />
         </div>
       </div>
     </>
@@ -39,7 +64,13 @@ const CustomerComplainhtmlForm = () => {
     <div className="col-span-full">
       <Label name={"Email"} />
       <div className="mt-2">
-        <TextInput autoComplete={"full-name"} name={"full-name"} id="full-name" inputType={"email"} />
+        <TextInput
+          autoComplete={"Email"}
+          name={"email"}
+          id="email"
+          inputType={"email"}
+          additionalProps={{ ...register("email", { required: true }) }}
+        />
       </div>
     </div>
   )
@@ -68,8 +99,9 @@ const CustomerComplainhtmlForm = () => {
     </div>
   )
 
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="border-b border-gray-900/10 pb-12">
         <h2 className="text-base font-semibold leading-7 text-gray-900">Complain Form</h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">Submit your complain here</p>
@@ -78,7 +110,11 @@ const CustomerComplainhtmlForm = () => {
           {renderEmailSection()}
           {renderCategoriesSection()}
           {renderIssueDescriptionSection()}
-          <ExtraFields extraFields={extraFields} />
+          <ExtraFields
+            fields={fields}
+            control={control}
+            register={register}
+          />
         </div>
       </div>
       <div class="mt-6 flex items-center justify-end gap-x-6">
@@ -88,4 +124,4 @@ const CustomerComplainhtmlForm = () => {
   )
 }
 
-export default CustomerComplainhtmlForm;
+export default CustomerComplainForm;

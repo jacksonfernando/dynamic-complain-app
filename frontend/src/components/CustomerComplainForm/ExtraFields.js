@@ -4,11 +4,12 @@ import TextArea from "../TextArea";
 import TextInput from "../TextInput";
 import { DROPDOWN, FILE, MULTIFILE, NUMBER, TEXT, TEXTAREA } from "@/constants/globals";
 
-const ExtraFields = ({ extraFields }) => {
-  const renderInputBaseOnCategory = (category) => {
-    const { type, id, label, value, key } = category;
-    const customKey = `extraFields-input-${key}`;
+const ExtraFields = ({ fields, register }) => {
+  const renderInputBaseOnCategory = (field, index) => {
+    const { id, value, type, label } = field;
+    const registerKey = register(`extraFields.${index}.value`, { required: true });
 
+    const customKey = id;
     if (type === FILE) {
       return <TextInput
         key={customKey}
@@ -17,6 +18,7 @@ const ExtraFields = ({ extraFields }) => {
         autoComplete={label}
         value={null}
         inputType={'file'}
+        additionalProps={{ ...registerKey }}
       />
     }
     if (type === MULTIFILE) {
@@ -27,7 +29,10 @@ const ExtraFields = ({ extraFields }) => {
         value={null}
         autoComplete={label}
         inputType={'file'}
-        additionalProps={{ multiple: true }}
+        additionalProps={{
+          ...registerKey,
+          multiple: true
+        }}
       />
     }
     if (type === TEXTAREA) {
@@ -35,6 +40,7 @@ const ExtraFields = ({ extraFields }) => {
         key={customKey}
         name={customKey}
         id={customKey}
+        additionalProps={{ ...registerKey }}
       />
     }
     if (type === TEXT) {
@@ -45,6 +51,7 @@ const ExtraFields = ({ extraFields }) => {
         value={null}
         autoComplete={label}
         inputType={'text'}
+        additionalProps={{ ...registerKey }}
       />
     }
     if (type === DROPDOWN) {
@@ -54,6 +61,7 @@ const ExtraFields = ({ extraFields }) => {
         id={customKey}
         onChangeEvent={() => { }}
         options={value}
+        additionalProps={{ ...registerKey }}
       />
     }
     if (type === NUMBER) {
@@ -63,27 +71,29 @@ const ExtraFields = ({ extraFields }) => {
         id={customKey}
         autoComplete={label}
         inputType={'number'}
+        additionalProps={{ ...registerKey }}
       />
     }
   };
 
-  return extraFields.length > 0 && extraFields.map(field => (
+  return fields.map((field, index) => (
     <>
       <div className="sm:col-span-3" >
         <Label name={'Field Name'} />
         <div className="mt-2">
           <TextInput
-            key={`extraFields-name-${field.key}`}
+            key={field.id}
             name={'field-name'}
             inputType={'text'}
             autoComplete={'field-name'}
+            additionalProps={{ ...register(`extraFields.${index}.fieldName`, { required: true }) }}
           />
         </div>
       </div>
       <div className="sm:col-span-3">
         <Label name={'Value'} />
         <div className="mt-2">
-          {renderInputBaseOnCategory(field)}
+          {renderInputBaseOnCategory(field, index)}
         </div>
       </div>
     </>
