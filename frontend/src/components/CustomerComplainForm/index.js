@@ -9,7 +9,6 @@ import Dropdown from '../Dropdown';
 import ExtraFields from './ExtraFields';
 import Button from '../Button';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { renderErrorText } from '@/utils/global';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
@@ -33,8 +32,15 @@ const CustomerComplainForm = () => {
   useEffect(() => {
     setFetchedCategories(CATEGORIES)
   }, [])
+
   const onSubmit = (data) => {
     console.log(data)
+  }
+
+  const renderErrorText = (error, label) => {
+    return error?.type === 'required' && (
+      <p className='text-red-600'>{`${label} is required`}</p>
+    )
   }
 
   const onChangeCategories = (event) => {
