@@ -1,11 +1,11 @@
-import { renderErrorText } from "@/utils/global";
 import Dropdown from "../Dropdown";
 import Label from "../Label";
 import TextArea from "../TextArea";
 import TextInput from "../TextInput";
 import { DROPDOWN, FILE, MULTIFILE, NUMBER, TEXT, TEXTAREA } from "@/constants/globals";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const ExtraFields = ({ fields, register, errors }) => {
+const ExtraFields = ({ fields, register, errors, remove }) => {
   const renderInputBaseOnCategory = (field, index) => {
     const { id, value, type, label } = field;
     const registerKey = register(`extraFields.${index}.value`, { required: true });
@@ -86,7 +86,7 @@ const ExtraFields = ({ fields, register, errors }) => {
   return fields.map((field, index) => {
     return (
       <>
-        <div className="sm:col-span-3" >
+        <div className="sm:col-span-2" >
           <Label
             name={'Field Name'}
             key={`label-${field.id}`}
@@ -111,6 +111,13 @@ const ExtraFields = ({ fields, register, errors }) => {
             {renderInputBaseOnCategory(field, index)}
           </div>
           {renderErrorText(errors?.extraFields?.[index].value, field.label)}
+        </div>
+        <div className="sm:col-span-1 mt-8" >
+          <IoIosCloseCircleOutline
+            size={40}
+            color="red"
+            onClick={() => remove(index)}
+          />
         </div>
       </>
     )

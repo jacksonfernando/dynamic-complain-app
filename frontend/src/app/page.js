@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import { useState } from "react";
 
 export default function Home() {
-  const [signInModalOpen, setSignInModalOpen] = useState(true);
+  const [signInModalOpen, setSignInModalOpen] = useState(false);
 
   return (
     <>

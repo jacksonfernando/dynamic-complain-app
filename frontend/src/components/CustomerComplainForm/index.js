@@ -125,6 +125,7 @@ const CustomerComplainForm = () => {
             control={control}
             register={register}
             errors={errors}
+            remove={remove}
           />
         </div>
       </div>
