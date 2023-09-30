@@ -44,7 +44,7 @@ public class ComplainService {
             Complain savedComplain = complainRepository.save(Complain);
             return savedComplain;
         } catch (Exception e) {
-            throw new Exception("Failed to save Complain");
+            throw new Exception("Failed to save complain");
         }
     }
 
@@ -58,7 +58,7 @@ public class ComplainService {
         try {
             complainRepository.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("Failed to delete Complain");
+            throw new Exception("Failed to delete complain");
         }
     }
 }

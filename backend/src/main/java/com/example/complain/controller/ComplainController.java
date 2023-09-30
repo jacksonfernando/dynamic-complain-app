@@ -12,66 +12,66 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.complain.dto.response.ListCategoryResponseDTO;
-import com.example.complain.entity.Category;
-import com.example.complain.service.CategoryService;
+import com.example.complain.dto.response.ListComplainResponseDTO;
+import com.example.complain.entity.Complain;
+import com.example.complain.service.ComplainService;
 
 @RestController
 @RequestMapping("/api/v1/complains")
 public class ComplainController {
-    CategoryService categoryService;
+    ComplainService complainService;
 
     @Autowired
-    public void setService(CategoryService service) {
-        this.categoryService = service;
+    public void setService(ComplainService service) {
+        this.complainService = service;
     }
 
     @GetMapping
-    ResponseEntity<?> fetchAllCategory(
+    ResponseEntity<?> fetchAllComplain(
             @RequestParam(defaultValue = "5", required = false) Integer limit,
             @RequestParam(defaultValue = "0", required = false) Integer offset) {
         try {
-            ListCategoryResponseDTO categories = categoryService.findAll(limit, offset);
-            return ResponseEntity.ok(categories);
+            ListComplainResponseDTO complains = complainService.findAll(limit, offset);
+            return ResponseEntity.ok(complains);
         } catch (Exception e) {
             System.out.println("EXCEPTION_MESSAGE" + e.getMessage());
-            return ResponseEntity.status(500).body("Failed to fetch all Category posts");
+            return ResponseEntity.status(500).body("Failed to fetch all Complain posts");
         }
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Category> fetchCategoryById(@PathVariable long id) throws Exception {
-        Category category = categoryService.getById(id);
+    ResponseEntity<Complain> fetchComplainById(@PathVariable long id) throws Exception {
+        Complain category = complainService.getById(id);
         return ResponseEntity.ok(category);
     }
 
     @PostMapping
-    ResponseEntity<?> saveCategory(@RequestBody Category request) {
+    ResponseEntity<?> saveComplain(@RequestBody Complain request) {
         try {
-            Category savedCategory = categoryService.save(request);
-            return ResponseEntity.created(null).body(savedCategory);
+            Complain savedComplain = complainService.save(request);
+            return ResponseEntity.created(null).body(savedComplain);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to save Category");
+            return ResponseEntity.status(500).body("Failed to save complain");
         }
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteCategory(@PathVariable long id) {
+    ResponseEntity<String> deleteComplain(@PathVariable long id) {
         try {
-            categoryService.delete(id);
-            return ResponseEntity.ok("Deleted Category post id: " + id);
+            complainService.delete(id);
+            return ResponseEntity.ok("Deleted Complain post id: " + id);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to delete Category");
+            return ResponseEntity.status(500).body("Failed to delete complain");
         }
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateCategory(@PathVariable long id, @RequestBody Category Category) {
+    ResponseEntity<?> updateComplain(@PathVariable long id, @RequestBody Complain Complain) {
         try {
-            Category updatedCategory = categoryService.updateById(id, Category);
-            return ResponseEntity.ok(updatedCategory);
+            Complain updatedComplain = complainService.updateById(id, Complain);
+            return ResponseEntity.ok(updatedComplain);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to update Category");
+            return ResponseEntity.status(500).body("Failed to update complain");
         }
     }
 }
