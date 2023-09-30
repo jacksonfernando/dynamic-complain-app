@@ -1,12 +1,14 @@
 package com.example.complain.entity;
 
-import java.util.Map;
-
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity(name = "categories")
 public class Category {
@@ -23,8 +25,8 @@ public class Category {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "value")
-    private Map<String, String> value;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<CategoryValueJson> value;
 
     public long getId() {
         return id;
