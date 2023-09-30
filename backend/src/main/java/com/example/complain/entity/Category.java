@@ -1,6 +1,8 @@
 package com.example.complain.entity;
 
 import java.util.List;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,17 +18,27 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "title")
-    private String title;
-
-    @Column(name = "label")
+    @Nonnull
+    @Column(name = "label", nullable = false)
     private String label;
 
-    @Column(name = "type")
+    @Nonnull
+    @Column(name = "type", nullable = false)
     private String type;
 
     @JdbcTypeCode(SqlTypes.JSON)
     private List<CategoryValueJson> value;
+
+    public Category() {
+    }
+
+    public List<CategoryValueJson> getValue() {
+        return value;
+    }
+
+    public void setValue(List<CategoryValueJson> value) {
+        this.value = value;
+    }
 
     public long getId() {
         return id;
@@ -34,14 +46,6 @@ public class Category {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getLabel() {
@@ -62,7 +66,6 @@ public class Category {
 
     public Category(long id, String title, String label, String type) {
         this.id = id;
-        this.title = title;
         this.label = label;
         this.type = type;
     }

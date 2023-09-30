@@ -17,8 +17,8 @@ import com.example.complain.entity.Category;
 import com.example.complain.service.CategoryService;
 
 @RestController
-@RequestMapping("/api/v1/categories")
-public class CategoryController {
+@RequestMapping("/api/v1/complains")
+public class ComplainController {
     CategoryService categoryService;
 
     @Autowired
