@@ -1,4 +1,4 @@
-package com.example.blog.service;
+package com.example.complain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,9 +23,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import com.example.blog.dto.response.ListBlogsResponseDTO;
-import com.example.blog.entity.Blog;
-import com.example.blog.repository.BlogRepository;
+import com.example.complain.dto.response.ListBlogsResponseDTO;
+import com.example.complain.entity.Blog;
+import com.example.complain.repository.BlogRepository;
 
 @SpringBootTest
 public class BlogServiceTest {

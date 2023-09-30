@@ -1,4 +1,4 @@
-package com.example.blog;
+package com.example.complain;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +11,6 @@ class ComplainApplicationTests {
 
 	@Test
 	public void main() {
-		ComplainApplicationTests.main(new String[] {});
+		ComplainApplication.main(new String[] {});
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.blog.entity;
+package com.example.complain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

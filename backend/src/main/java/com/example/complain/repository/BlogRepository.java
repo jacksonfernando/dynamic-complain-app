@@ -1,8 +1,8 @@
-package com.example.blog.repository;
+package com.example.complain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.blog.entity.Blog;
+import com.example.complain.entity.Blog;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

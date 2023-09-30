@@ -1,4 +1,4 @@
-package com.example.blog.config;
+package com.example.complain.config;
 
 import java.io.IOException;
 

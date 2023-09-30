@@ -1,4 +1,4 @@
-package com.example.blog.service;
+package com.example.complain.service;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.blog.dto.response.ListBlogsResponseDTO;
-import com.example.blog.entity.Blog;
-import com.example.blog.repository.BlogRepository;
+import com.example.complain.dto.response.ListBlogsResponseDTO;
+import com.example.complain.entity.Blog;
+import com.example.complain.repository.BlogRepository;
 
 @Service
 public class BlogService {

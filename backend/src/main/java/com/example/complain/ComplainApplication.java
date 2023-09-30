@@ -1,4 +1,4 @@
-package com.example.blog;
+package com.example.complain;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

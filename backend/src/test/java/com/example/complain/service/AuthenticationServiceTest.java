@@ -1,4 +1,4 @@
-package com.example.blog.service;
+package com.example.complain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,11 +15,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.blog.config.JwtService;
-import com.example.blog.dto.request.RegisterRequestDTO;
-import com.example.blog.dto.response.AuthenticationResponseDTO;
-import com.example.blog.entity.User;
-import com.example.blog.repository.UserRepository;
+import com.example.complain.config.JwtService;
+import com.example.complain.dto.request.RegisterRequestDTO;
+import com.example.complain.dto.response.AuthenticationResponseDTO;
+import com.example.complain.entity.User;
+import com.example.complain.repository.UserRepository;
 
 @SpringBootTest
 public class AuthenticationServiceTest {

@@ -1,4 +1,4 @@
-package com.example.blog.entity;
+package com.example.complain.entity;
 
 public enum Role {
     USER,

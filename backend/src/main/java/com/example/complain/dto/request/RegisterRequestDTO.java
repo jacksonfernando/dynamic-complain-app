@@ -1,4 +1,4 @@
-package com.example.blog.dto.request;
+package com.example.complain.dto.request;
 
 import java.util.Objects;
 

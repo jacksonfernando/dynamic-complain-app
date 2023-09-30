@@ -1,6 +1,6 @@
-package com.example.blog.dto.response;
+package com.example.complain.dto.response;
 
-import com.example.blog.entity.Blog;
+import com.example.complain.entity.Blog;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 

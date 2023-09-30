@@ -1,10 +1,10 @@
-package com.example.blog.repository;
+package com.example.complain.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.blog.entity.User;
+import com.example.complain.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);

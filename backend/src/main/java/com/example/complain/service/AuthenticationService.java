@@ -1,4 +1,4 @@
-package com.example.blog.service;
+package com.example.complain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,11 +6,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.blog.config.JwtService;
-import com.example.blog.dto.request.RegisterRequestDTO;
-import com.example.blog.dto.response.AuthenticationResponseDTO;
-import com.example.blog.entity.User;
-import com.example.blog.repository.UserRepository;
+import com.example.complain.config.JwtService;
+import com.example.complain.dto.request.RegisterRequestDTO;
+import com.example.complain.dto.response.AuthenticationResponseDTO;
+import com.example.complain.entity.User;
+import com.example.complain.repository.UserRepository;
 
 @Service
 public class AuthenticationService {

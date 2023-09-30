@@ -1,4 +1,4 @@
-package com.example.blog.entity;
+package com.example.complain.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

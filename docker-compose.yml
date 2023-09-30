@@ -1,0 +1,19 @@
+services:
+  ms_complain:
+    build: ./backend
+    depends_on:
+      - postgres_db
+    ports:
+      - "8000:8000"
+  postgres_db:
+    image: postgres:14.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=jackson
+      - POSTGRES_PASSWORD=root
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+volumes:
+  postgres_volume:

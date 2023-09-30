@@ -1,4 +1,4 @@
-package com.example.blog.controller;
+package com.example.complain.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.blog.dto.request.RegisterRequestDTO;
-import com.example.blog.dto.response.AuthenticationResponseDTO;
-import com.example.blog.service.AuthenticationService;
+import com.example.complain.dto.request.RegisterRequestDTO;
+import com.example.complain.dto.response.AuthenticationResponseDTO;
+import com.example.complain.service.AuthenticationService;
 
 @RestController
 @RequestMapping("/api/v1/auth")

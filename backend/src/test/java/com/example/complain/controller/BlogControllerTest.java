@@ -1,4 +1,4 @@
-package com.example.blog.controller;
+package com.example.complain.controller;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -22,9 +22,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.example.blog.dto.response.ListBlogsResponseDTO;
-import com.example.blog.entity.Blog;
-import com.example.blog.service.BlogService;
+import com.example.complain.dto.response.ListBlogsResponseDTO;
+import com.example.complain.entity.Blog;
+import com.example.complain.service.BlogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest

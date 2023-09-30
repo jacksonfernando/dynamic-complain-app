@@ -1,8 +1,8 @@
-package com.example.blog.dto.response;
+package com.example.complain.dto.response;
 
 import java.util.List;
 
-import com.example.blog.entity.Blog;
+import com.example.complain.entity.Blog;
 import java.util.Objects;
 
 public class ListBlogsResponseDTO {

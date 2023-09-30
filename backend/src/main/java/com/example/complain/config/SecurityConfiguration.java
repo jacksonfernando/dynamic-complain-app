@@ -1,4 +1,4 @@
-package com.example.blog.config;
+package com.example.complain.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
