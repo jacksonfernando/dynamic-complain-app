@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BlogApplicationTests {
+class ComplainApplicationTests {
 	@Test
 	void contextLoads() {
 	}
 
 	@Test
 	public void main() {
-		BlogApplication.main(new String[] {});
+		ComplainApplicationTests.main(new String[] {});
 	}
 }
