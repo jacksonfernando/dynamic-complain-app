@@ -84,16 +84,17 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
   }
 
   return fields.map((field, index) => {
+    const { id, label } = field;
     return (
       <>
         <div className="sm:col-span-2" >
           <Label
             name={'Field Name'}
-            key={`label-${field.id}`}
+            key={`label-${id}`}
           />
           <div className="mt-2">
             <TextInput
-              key={field.id}
+              key={id}
               name={'field-name'}
               inputType={'text'}
               autoComplete={'field-name'}
@@ -105,12 +106,12 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
         <div className="sm:col-span-3" >
           <Label
             name={'Value'}
-            key={`label-${field.id}`}
+            key={`label-${id}`}
           />
           <div className="mt-2">
             {renderInputBaseOnCategory(field, index)}
           </div>
-          {renderErrorText(errors?.extraFields?.[index].value, field.label)}
+          {renderErrorText(errors?.extraFields?.[index].value, label)}
         </div>
         <div className="sm:col-span-1 mt-8" >
           <IoIosCloseCircleOutline
