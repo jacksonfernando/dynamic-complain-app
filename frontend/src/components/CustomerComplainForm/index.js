@@ -9,6 +9,7 @@ import Dropdown from '../Dropdown';
 import ExtraFields from './ExtraFields';
 import Button from '../Button';
 import { useForm, useFieldArray } from 'react-hook-form';
+import useFetchData from '@/hooks/useFetchData';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
@@ -21,6 +22,7 @@ const CustomerComplainForm = () => {
       extraFields: []
     }
   });
+  const { data, loading } = useFetchData('http://0.0.0.0:8080/api/v1/categories');
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -30,8 +32,10 @@ const CustomerComplainForm = () => {
   const { ref, onBlur, name: categoriesName } = register('categories');
 
   useEffect(() => {
-    setFetchedCategories(CATEGORIES)
-  }, [])
+    if (!loading) {
+      setFetchedCategories(data.categories)
+    }
+  }, [loading])
 
   const onSubmit = (data) => {
     console.log(data)
@@ -87,7 +91,7 @@ const CustomerComplainForm = () => {
         <Dropdown
           id={categoriesName}
           name={categoriesName}
-          options={CATEGORIES}
+          options={fetchedCategories}
           onChange={onChangeCategories}
           additionalProps={{ ref: ref, onBlur: onBlur }}
         />
