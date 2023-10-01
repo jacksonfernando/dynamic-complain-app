@@ -51,6 +51,7 @@ public class ComplainController {
             Complain savedComplain = complainService.save(request);
             return ResponseEntity.created(null).body(savedComplain);
         } catch (Exception e) {
+            System.out.println("COMPLAINS_ERROR" + e.getMessage());
             return ResponseEntity.status(500).body("Failed to save complain");
         }
     }

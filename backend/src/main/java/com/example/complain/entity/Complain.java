@@ -1,6 +1,5 @@
 package com.example.complain.entity;
 
-import java.util.Map;
 import java.util.List;
 
 import jakarta.annotation.Nonnull;
@@ -32,10 +31,10 @@ public class Complain {
     private String issueDescription;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    private List<Map<String, String>> extraFields;
+    private List<?> extraFields;
 
     public Complain(long id, String fullName, String email, String issueDescription,
-            List<Map<String, String>> extraFields) {
+            List<?> extraFields) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -78,11 +77,11 @@ public class Complain {
         this.issueDescription = issueDescription;
     }
 
-    public List<Map<String, String>> getExtraFields() {
+    public List<?> getExtraFields() {
         return extraFields;
     }
 
-    public void setExtraFields(List<Map<String, String>> extraFields) {
+    public void setExtraFields(List<?> extraFields) {
         this.extraFields = extraFields;
     }
 
