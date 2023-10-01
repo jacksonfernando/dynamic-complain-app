@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CATEGORIES } from '@/constants/globals';
+import { CATEGORIES, COMPLAIN_MS_ENDPOINT, FILE, MULTIFILE } from '@/constants/globals';
 import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import Label from '../Label';
@@ -10,6 +10,7 @@ import ExtraFields from './ExtraFields';
 import Button from '../Button';
 import { useForm, useFieldArray } from 'react-hook-form';
 import useFetchData from '@/hooks/useFetchData';
+import axios from 'axios';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
@@ -22,7 +23,7 @@ const CustomerComplainForm = () => {
       extraFields: []
     }
   });
-  const { data, loading } = useFetchData('http://0.0.0.0:8080/api/v1/categories');
+  const { data, loading } = useFetchData(`/api/categories`);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -33,12 +34,18 @@ const CustomerComplainForm = () => {
 
   useEffect(() => {
     if (!loading) {
-      setFetchedCategories(data.categories)
+      setFetchedCategories(data.categories || CATEGORIES)
     }
   }, [loading])
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    data.extraFields.value = data.extraFields.forEach(field => {
+      if (field.type == FILE || field.type == MULTIFILE) {
+        field.value = field.value[0].name;
+      }
+      return field.value;
+    })
+    await axios.post(`/api/complains`, data);
   }
 
   const renderErrorText = (error, label) => {

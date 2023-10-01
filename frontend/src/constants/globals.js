@@ -1,6 +1,6 @@
 const FILE = "file";
 
-const MULTIFILE = "mutlifile";
+const MULTIFILE = "multifile";
 
 const DROPDOWN = "dropdown";
 
@@ -9,6 +9,8 @@ const TEXT = "text";
 const TEXTAREA = "textarea";
 
 const NUMBER = "number";
+
+const COMPLAIN_MS_ENDPOINT = 'http://0.0.0.0:8080/api/v1'
 
 const CATEGORIES = [
   {
@@ -49,6 +51,8 @@ const CATEGORIES = [
   }
 ]
 
+
+
 export {
   CATEGORIES,
   FILE,
@@ -56,5 +60,6 @@ export {
   DROPDOWN,
   TEXT,
   TEXTAREA,
-  NUMBER
+  NUMBER,
+  COMPLAIN_MS_ENDPOINT
 }

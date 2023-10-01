@@ -18,7 +18,6 @@ import com.example.complain.entity.Category;
 import com.example.complain.service.CategoryService;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
     CategoryService categoryService;
