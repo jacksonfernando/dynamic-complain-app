@@ -38,13 +38,23 @@ const CustomerComplainForm = () => {
     }
   }, [loading])
 
+  const uploadFile = async (files) => {
+    if (files.length <= 0) return;
+    const formData = new FormData();
+    Array.from(files[0]).forEach((file) => formData.append('files', file));
+    await axios.post(`/api/files`, formData);
+  }
+
   const onSubmit = async (data) => {
+    const files = [];
     data.extraFields.value = data.extraFields.forEach(field => {
       if (field.type == FILE || field.type == MULTIFILE) {
+        files.push(field.value);
         field.value = field.value[0].name;
       }
       return field.value;
     })
+    await uploadFile(files)
     await axios.post(`/api/complains`, data);
   }
 

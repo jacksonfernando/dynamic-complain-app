@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/v1/auth/test/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/complains/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/v1/files/**").permitAll()
                                 .anyRequest()
                                 .authenticated())
                                 .sessionManagement(session -> session
