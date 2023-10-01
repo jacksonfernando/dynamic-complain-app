@@ -11,10 +11,14 @@ import Button from '../Button';
 import { useForm, useFieldArray } from 'react-hook-form';
 import useFetchData from '@/hooks/useFetchData';
 import axios from 'axios';
+import { uploadFile } from '@/utils/global';
+import SuccessAlert from '../Alert/SuccessAlert';
+import { wrap } from 'lodash';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
-  const { control, register, handleSubmit, formState: { errors } } = useForm({
+  const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
+  const { control, register, reset, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       fullName: '',
       email: '',
@@ -38,13 +42,6 @@ const CustomerComplainForm = () => {
     }
   }, [loading])
 
-  const uploadFile = async (files) => {
-    if (files[0].length <= 0) return;
-    const formData = new FormData();
-    Array.from(files).forEach((file) => formData.append('files', file));
-    const uploadedResult = await axios.post(`/api/files`, formData);
-    return uploadedResult.data;
-  }
 
   const onSubmit = async (data) => {
     data.extraFields.value = await Promise.all(data.extraFields.map(async field => {
@@ -55,6 +52,8 @@ const CustomerComplainForm = () => {
       return field.value;
     }));
     await axios.post(`/api/complains`, data);
+    setSuccessSubmitAlert(true);
+    reset();
   }
 
   const renderErrorText = (error, label) => {
@@ -131,28 +130,31 @@ const CustomerComplainForm = () => {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='border-b border-gray-900/10 pb-12'>
-        <h2 className='text-base font-semibold leading-7 text-gray-900'>Complain Form</h2>
-        <p className='mt-1 text-sm leading-6 text-gray-600'>Submit your complain here</p>
-        <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-          {renderFullNameSection()}
-          {renderEmailSection()}
-          {renderCategoriesSection()}
-          {renderIssueDescriptionSection()}
-          <ExtraFields
-            fields={fields}
-            control={control}
-            register={register}
-            errors={errors}
-            remove={remove}
-          />
+    <>
+      {successSubmitAlert && <SuccessAlert message={'Success submitting complain!'} />}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='border-b border-gray-900/10 pb-12'>
+          <h2 className='text-base font-semibold leading-7 text-gray-900'>Complain Form</h2>
+          <p className='mt-1 text-sm leading-6 text-gray-600'>Submit your complain here</p>
+          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+            {renderFullNameSection()}
+            {renderEmailSection()}
+            {renderCategoriesSection()}
+            {renderIssueDescriptionSection()}
+            <ExtraFields
+              fields={fields}
+              control={control}
+              register={register}
+              errors={errors}
+              remove={remove}
+            />
+          </div>
         </div>
-      </div>
-      <div className='mt-6 flex items-center justify-end gap-x-6'>
-        <Button text={'save'} type={'submit'} />
-      </div>
-    </form >
+        <div className='mt-6 flex items-center justify-end gap-x-6'>
+          <Button text={'save'} type={'submit'} />
+        </div>
+      </form >
+    </>
   )
 }
 
