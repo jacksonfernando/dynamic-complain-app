@@ -100,7 +100,7 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
               autoComplete={'field-name'}
               additionalProps={{ ...register(`extraFields.${index}.fieldName`, { required: true }) }}
             />
-            {renderErrorText(errors?.extraFields?.[index].fieldName, 'Field name')}
+            {renderErrorText(errors?.extraFields?.[index]?.fieldName, 'Field name')}
           </div>
         </div>
         <div className="sm:col-span-3" >
@@ -111,7 +111,7 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
           <div className="mt-2">
             {renderInputBaseOnCategory(field, index)}
           </div>
-          {renderErrorText(errors?.extraFields?.[index].value, label)}
+          {renderErrorText(errors?.extraFields?.[index]?.value, label)}
         </div>
         <div className="sm:col-span-1 mt-8" >
           <IoIosCloseCircleOutline

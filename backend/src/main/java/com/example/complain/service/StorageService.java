@@ -28,13 +28,16 @@ public class StorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    public void store(MultipartFile file) {
+    public String store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
                 throw new RuntimeException("Failed to store empty file.");
             }
+            String[] splittedOriginalName = file.getOriginalFilename().split("\\.");
+            String newFilename = splittedOriginalName[0] + '-' + System.currentTimeMillis() + '.'
+                    + splittedOriginalName[1];
             Path destinationFile = this.rootLocation.resolve(
-                    Paths.get(file.getOriginalFilename()))
+                    Paths.get(newFilename))
                     .normalize().toAbsolutePath();
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
                 // This is a security check
@@ -45,6 +48,7 @@ public class StorageService {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
             }
+            return newFilename;
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file.", e);
         }
