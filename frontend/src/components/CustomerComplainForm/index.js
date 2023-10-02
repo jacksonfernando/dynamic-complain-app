@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CATEGORIES, FILE, MULTIFILE } from '@/constants/globals';
+import { CATEGORIES, DROPDOWN, FILE, MULTIFILE } from '@/constants/globals';
 import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import Label from '../Label';
-import Dropdown from '../Dropdown';
 import ExtraFields from './ExtraFields';
 import Button from '../Button';
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -13,6 +12,7 @@ import useFetchData from '@/hooks/useFetchData';
 import axios from 'axios';
 import { uploadFile } from '@/utils/global';
 import SuccessAlert from '../Alert/SuccessAlert';
+import CategoryDropdown from '../Dropdown/CategoryDropdown';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
@@ -64,7 +64,11 @@ const CustomerComplainForm = () => {
   const onChangeCategories = (event) => {
     const category = fetchedCategories
       .find((category) => category.id === parseInt(event.target.value))
-    append(category)
+    if (category.type == DROPDOWN) {
+      category.options = category.value
+      return append(category)
+    }
+    return append(category)
   }
 
   const renderFullNameSection = () => (
@@ -102,7 +106,7 @@ const CustomerComplainForm = () => {
     <div className='col-span-full'>
       <Label name={'Category'} />
       <div className='mt-2'>
-        <Dropdown
+        <CategoryDropdown
           id={categoriesName}
           name={categoriesName}
           options={fetchedCategories}

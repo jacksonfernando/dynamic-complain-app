@@ -1,4 +1,4 @@
-import Dropdown from "../Dropdown";
+import ExtraFieldDropdown from "../Dropdown/ExtraFieldDropdown";
 import Label from "../Label";
 import TextArea from "../TextArea";
 import TextInput from "../TextInput";
@@ -7,9 +7,10 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ExtraFields = ({ fields, register, errors, remove }) => {
   const renderInputBaseOnCategory = (field, index) => {
-    const { id, value, type, label } = field;
+    const { id, value, type, label, options } = field;
     const registerKey = register(`extraFields.${index}.value`, { required: true });
     const customKey = id;
+    console.log(field);
 
     if (type === FILE) {
       return <TextInput
@@ -56,12 +57,13 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
       />
     }
     if (type === DROPDOWN) {
-      return <Dropdown
+      return <ExtraFieldDropdown
         key={customKey}
         name={customKey}
         id={customKey}
+        value={value}
         onChangeEvent={() => { }}
-        options={value}
+        options={options}
         additionalProps={{ ...registerKey }}
       />
     }
