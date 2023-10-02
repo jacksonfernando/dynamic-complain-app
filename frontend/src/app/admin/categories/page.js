@@ -1,6 +1,32 @@
+'use client';
 import Sidebar from "@/components/Sidebar"
+import useFetchData from "@/hooks/useFetchData"
+import { useEffect, useState } from 'react'
+import axios from "axios"
+import Cookies from "js-cookie"
 
-const CategoriesPage = () => {
+//export async function getStaticProps() {
+//  getServerSideProps
+//  const token = Cookies.get('token')
+//  const { data } = await axios.get('/api/categories', {
+//    headers: {
+//      'Authorization': `Bearer ${token}`
+//    }
+//  })
+//  return { props: { data } }
+//}
+
+const Page = () => {
+
+  const [fetchedCategories, setFetchedCategories] = useState([]);
+  const { data, loading } = useFetchData(`/api/categories`);
+
+  useEffect(() => {
+    if (!loading) {
+      setFetchedCategories(data.categories || CATEGORIES)
+    }
+  }, [loading])
+
   const renderHeading = () => {
     const headingsLabel = ['Label', 'Type', 'Value', 'Action']
     return (
@@ -20,24 +46,26 @@ const CategoriesPage = () => {
   }
 
   const renderContent = () => {
-    return (
-      <tbody>
-        <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+    return fetchedCategories.map((category, index) => {
+      const { label, type, value } = category;
+      const test = value && value.reduce((acc, curr) => acc + `label:${curr.label},value:${curr.value}`, '');
+      return (
+        <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
           <td className="px-6 py-4 text-black">
-            Silver
+            {label}
           </td>
           <td className="px-6 py-4">
-            Laptop
+            {type}
           </td>
           <td className="px-6 py-4">
-            $2999
+            {test}
           </td>
           <td className="px-6 py-4">
             <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
           </td>
         </tr>
-      </tbody>
-    )
+      )
+    });
   }
 
   return (
@@ -47,7 +75,9 @@ const CategoriesPage = () => {
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             {renderHeading()}
-            {renderContent()}
+            <tbody>
+              {renderContent()}
+            </tbody>
           </table>
         </div>
       </div>
@@ -55,4 +85,4 @@ const CategoriesPage = () => {
   )
 }
 
-export default CategoriesPage;
+export default Page;

@@ -14,13 +14,7 @@ import axios from 'axios';
 import { uploadFile } from '@/utils/global';
 import SuccessAlert from '../Alert/SuccessAlert';
 
-export async function getStaticProps() {
-  const res = await axios.get('/api/categories')
-  const categories = await res.json()
-  return { props: { categories } }
-}
-
-const CustomerComplainForm = ({ categories }) => {
+const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
   const { control, register, reset, handleSubmit, formState: { errors } } = useForm({
