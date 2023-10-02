@@ -2,22 +2,8 @@
 import Sidebar from "@/components/Sidebar"
 import useFetchData from "@/hooks/useFetchData"
 import { useEffect, useState } from 'react'
-import axios from "axios"
-import Cookies from "js-cookie"
-
-//export async function getStaticProps() {
-//  getServerSideProps
-//  const token = Cookies.get('token')
-//  const { data } = await axios.get('/api/categories', {
-//    headers: {
-//      'Authorization': `Bearer ${token}`
-//    }
-//  })
-//  return { props: { data } }
-//}
 
 const Page = () => {
-
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const { data, loading } = useFetchData(`/api/categories`);
 
