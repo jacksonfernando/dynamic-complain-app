@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CATEGORIES, COMPLAIN_MS_ENDPOINT, FILE, MULTIFILE } from '@/constants/globals';
+import { CATEGORIES, FILE, MULTIFILE } from '@/constants/globals';
 import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import Label from '../Label';
@@ -13,7 +13,6 @@ import useFetchData from '@/hooks/useFetchData';
 import axios from 'axios';
 import { uploadFile } from '@/utils/global';
 import SuccessAlert from '../Alert/SuccessAlert';
-import { wrap } from 'lodash';
 
 const CustomerComplainForm = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
