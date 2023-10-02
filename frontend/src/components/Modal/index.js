@@ -20,7 +20,7 @@ const Modal = ({ open, setOpen }) => {
               </div>
               <div className='mt-2'>
                 <Label name={'Password'} />
-                <TextInput inputType={'text'} name={'password'} autoComplete={'password'} />
+                <TextInput inputType={'password'} name={'password'} autoComplete={'password'} />
               </div>
             </div>
             <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>

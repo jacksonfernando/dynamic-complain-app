@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar setSignInModalOpen={setSignInModalOpen} />
       <div className="mx-auto my-16 max-w-3xl">
         <CustomerComplainForm />
       </div>
