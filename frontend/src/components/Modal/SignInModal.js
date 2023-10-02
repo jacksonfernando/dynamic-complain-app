@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import SuccessAlert from '../Alert/SuccessAlert';
 import { useState } from 'react';
 
-const Modal = ({ open, setOpen }) => {
+const SignInModal = ({ open, setOpen }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
 
   const renderErrorText = (error, label) => {
@@ -27,7 +27,7 @@ const Modal = ({ open, setOpen }) => {
       const { data: responseData } = await axios.post(`/api/auth/authenticate`, data);
       Cookies.set('token', responseData.token, { expires: 1 })
       setSuccessSubmitAlert(true)
-      coo
+      window.location.replace('/admin')
     } catch (error) {
       console.log(error);
     }
@@ -81,4 +81,4 @@ const Modal = ({ open, setOpen }) => {
   )
 }
 
-export default Modal;
+export default SignInModal;

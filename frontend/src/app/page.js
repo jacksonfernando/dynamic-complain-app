@@ -1,7 +1,7 @@
 'use client';
 
 import CustomerComplainForm from "@/components/CustomerComplainForm";
-import Modal from "@/components/Modal";
+import SignInModal from "@/components/Modal/SignInModal";
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
 
@@ -14,7 +14,7 @@ export default function Home() {
       <div className="mx-auto my-16 max-w-3xl">
         <CustomerComplainForm />
       </div>
-      <Modal open={signInModalOpen} setOpen={setSignInModalOpen} />
+      <SignInModal open={signInModalOpen} setOpen={setSignInModalOpen} />
     </>
   )
 }
