@@ -1,10 +1,13 @@
 'use client';
 import Sidebar from "@/components/Sidebar"
+import Table from "@/components/Table";
 import useFetchData from "@/hooks/useFetchData"
+import { isEmpty } from "lodash";
 import { useEffect, useState } from 'react'
 
 const Page = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
+  const headingsLabel = ['Label', 'Type', 'Value', 'Action']
   const { data, loading } = useFetchData(`/api/categories`);
 
   useEffect(() => {
@@ -13,23 +16,6 @@ const Page = () => {
     }
   }, [loading])
 
-  const renderHeading = () => {
-    const headingsLabel = ['Label', 'Type', 'Value', 'Action']
-    return (
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          {headingsLabel.map(heading => {
-            return (
-              <th scope="col" className="px-6 py-3">
-                {heading}
-              </th>
-            )
-          })}
-        </tr>
-      </thead>
-
-    )
-  }
 
   const renderContent = () => {
     return fetchedCategories.map((category, index) => {
@@ -57,16 +43,7 @@ const Page = () => {
   return (
     <>
       <Sidebar />
-      <div className="p-4 sm:ml-64">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            {renderHeading()}
-            <tbody>
-              {renderContent()}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {!isEmpty(fetchedCategories) && <Table headingsLabel={headingsLabel} renderContent={renderContent} />}
     </>
   )
 }
