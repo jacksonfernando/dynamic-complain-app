@@ -51,6 +51,38 @@ const CATEGORIES = [
   }
 ]
 
+const CATEGORY_OPTIONS = [
+  {
+    id: 1,
+    label: 'Single file image',
+    value: FILE,
+  },
+  {
+    id: 2,
+    label: 'Multiple file image',
+    value: MULTIFILE,
+  },
+  {
+    id: 3,
+    label: 'Dropdown selection',
+    value: DROPDOWN,
+  },
+  {
+    id: 4,
+    label: 'Text',
+    value: TEXT,
+  },
+  {
+    id: 5,
+    label: 'Textarea',
+    value: TEXTAREA,
+  },
+  {
+    id: 6,
+    label: 'Number',
+    value: NUMBER,
+  }
+]
 
 
 export {
@@ -61,5 +93,6 @@ export {
   TEXT,
   TEXTAREA,
   NUMBER,
-  COMPLAIN_MS_ENDPOINT
+  COMPLAIN_MS_ENDPOINT,
+  CATEGORY_OPTIONS
 }

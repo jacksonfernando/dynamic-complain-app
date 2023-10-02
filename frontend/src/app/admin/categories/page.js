@@ -1,4 +1,5 @@
 'use client';
+import CategoryModal from "@/components/Modal/CategoryModal";
 import Sidebar from "@/components/Sidebar"
 import Table from "@/components/Table";
 import useFetchData from "@/hooks/useFetchData"
@@ -6,7 +7,9 @@ import { isEmpty } from "lodash";
 import { useEffect, useState } from 'react'
 
 const Page = () => {
+  const [defaultValues, setDefaultValues] = useState({ label: null, type: null, value: null });
   const [fetchedCategories, setFetchedCategories] = useState([]);
+  const [categoryModal, setCategoryModal] = useState(false);
   const headingsLabel = ['Label', 'Type', 'Value', 'Action']
   const { data, loading } = useFetchData(`/api/categories`);
 
@@ -40,10 +43,19 @@ const Page = () => {
     });
   }
 
+  const onAddButton = () => {
+    setCategoryModal(!categoryModal)
+  }
+
   return (
     <>
       <Sidebar />
-      {!isEmpty(fetchedCategories) && <Table headingsLabel={headingsLabel} renderContent={renderContent} />}
+      {!isEmpty(fetchedCategories) && <Table
+        headingsLabel={headingsLabel}
+        renderContent={renderContent}
+        onAddButton={onAddButton}
+      />}
+      <CategoryModal open={categoryModal} setOpen={setCategoryModal} defaultValues={defaultValues} />
     </>
   )
 }
