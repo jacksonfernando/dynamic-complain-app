@@ -35,8 +35,9 @@ const Page = () => {
           <td className="px-6 py-4">
             {test}
           </td>
-          <td className="px-6 py-4">
-            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <td className="px-6 py-4 flex flex-row">
+            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex-1">Edit</a>
+            <a href="#" className="font-medium text-red-600 dark:text-blue-500 hover:underline flex-1">Delete</a>
           </td>
         </tr>
       )
