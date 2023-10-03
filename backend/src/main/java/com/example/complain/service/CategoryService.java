@@ -39,9 +39,9 @@ public class CategoryService {
         return categoryRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    public Category save(Category Category) throws Exception {
+    public Category save(Category category) throws Exception {
         try {
-            Category savedCategory = categoryRepository.save(Category);
+            Category savedCategory = categoryRepository.save(category);
             return savedCategory;
         } catch (Exception e) {
             throw new Exception("Failed to save Category");

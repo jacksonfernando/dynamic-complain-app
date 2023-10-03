@@ -23,12 +23,12 @@ public class ComplainService {
     }
 
     public ListComplainResponseDTO findAll(int limit, int offset) throws Exception {
-        List<Complain> Categories = new ArrayList<Complain>();
+        List<Complain> complains = new ArrayList<Complain>();
         Pageable sortedById = PageRequest.of(offset, limit, Sort.by("id").ascending());
         Page<Complain> pageComplainPosts = complainRepository.findAll(sortedById);
-        Categories = pageComplainPosts.getContent();
+        complains = pageComplainPosts.getContent();
         ListComplainResponseDTO response = new ListComplainResponseDTO(
-                Categories,
+                complains,
                 pageComplainPosts.getTotalPages(),
                 pageComplainPosts.getNumberOfElements(),
                 pageComplainPosts.getNumber());
@@ -39,9 +39,9 @@ public class ComplainService {
         return complainRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    public Complain save(Complain Complain) throws Exception {
+    public Complain save(Complain complain) throws Exception {
         try {
-            Complain savedComplain = complainRepository.save(Complain);
+            Complain savedComplain = complainRepository.save(complain);
             return savedComplain;
         } catch (Exception e) {
             throw new Exception("Failed to save complain");
