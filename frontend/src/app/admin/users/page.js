@@ -16,7 +16,7 @@ const Page = () => {
   const [userModal, setUserModal] = useState(false);
   const headingsLabel = ['Username', 'Action']
   const token = Cookies.get('token')
-  const { data, loading } = useFetchData(`/api/users`, {
+  const { data, loading, refetch } = useFetchData(`/api/users`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -26,7 +26,7 @@ const Page = () => {
     if (!loading) {
       setFetchedUsers(data)
     }
-  }, [loading])
+  }, [loading, data])
 
   const setOnEdit = (index) => {
     setDefaultValues(fetchedUsers[index]);
@@ -41,6 +41,7 @@ const Page = () => {
           'Authorization': `Bearer ${token}`
         }
       })
+      refetch();
       alert('success')
     }
     catch (error) {
@@ -97,6 +98,7 @@ const Page = () => {
         setOpen={setUserModal}
         defaultValues={defaultValues}
         mode={mode}
+        refetch={refetch}
       />
     </>
   )

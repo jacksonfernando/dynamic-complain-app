@@ -7,7 +7,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { delay } from 'lodash';
 
-const UserModal = ({ open, setOpen, defaultValues, mode }) => {
+const UserModal = ({ open, setOpen, defaultValues, mode, refetch }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
 
   const renderErrorText = (error, label) => {
@@ -36,6 +36,7 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
       if (mode == ADD_OPERATION) {
         await axios.post('/api/auth/register', { username, password })
         setSuccessSubmitAlert(true)
+        refetch()
         return delay(() => setSuccessSubmitAlert(false), 1000);
       }
       await axios.put(`/api/users/${id}`, { username, password }, {
@@ -44,6 +45,7 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
         }
       })
       setSuccessSubmitAlert(true)
+      refetch()
       return delay(() => setSuccessSubmitAlert(false), 1000);
     } catch (error) {
       alert('Failed!!')
