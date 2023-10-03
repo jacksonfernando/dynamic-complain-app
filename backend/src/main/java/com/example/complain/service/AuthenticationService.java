@@ -39,6 +39,17 @@ public class AuthenticationService {
         return new AuthenticationResponseDTO(jwtToken);
     }
 
+    public void inititateAdminUser(RegisterRequestDTO request) throws Exception {
+        User foundedUser = repository.findByUsername(request.getUsername()).orElse(null);
+        if (foundedUser != null) {
+            return;
+        }
+        User user = new User(
+                request.getUsername(),
+                passwordEncoder.encode(request.getPassword()));
+        repository.save(user);
+    }
+
     public AuthenticationResponseDTO authenticate(RegisterRequestDTO request) throws Exception {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));

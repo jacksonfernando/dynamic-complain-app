@@ -10,7 +10,6 @@ import com.example.complain.dto.request.RegisterRequestDTO;
 import com.example.complain.entity.StorageProperties;
 import com.example.complain.service.AuthenticationService;
 import com.example.complain.service.StorageService;
-import com.example.complain.service.UserService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
@@ -23,8 +22,7 @@ public class ComplainApplication {
 	@Bean
 	CommandLineRunner init(StorageService storageService, AuthenticationService authService) {
 		return (args) -> {
-			// storageService.deleteAll();
-			authService.register(new RegisterRequestDTO("admin", "admin"));
+			authService.inititateAdminUser(new RegisterRequestDTO("admin", "admin"));
 			storageService.init();
 		};
 	}
