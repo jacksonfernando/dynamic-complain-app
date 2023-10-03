@@ -68,12 +68,13 @@ const Page = () => {
   return (
     <>
       <Sidebar />
-      {!isEmpty(fetchedCategories) && <Table
+      <Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}
         onAddButton={onAddButton}
         setMode={setMode}
-      />}
+        isContentAvailable={!isEmpty(fetchedCategories)}
+      />
       <CategoryModal
         open={categoryModal}
         setOpen={setCategoryModal}

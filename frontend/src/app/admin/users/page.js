@@ -4,6 +4,7 @@ import UserModal from "@/components/Modal/UsersModal";
 import Sidebar from "@/components/Sidebar"
 import Table from "@/components/Table";
 import useFetchData from "@/hooks/useFetchData"
+import axios from "axios";
 import Cookies from "js-cookie";
 import { isEmpty } from "lodash";
 import { useEffect, useState } from 'react'
@@ -33,9 +34,24 @@ const Page = () => {
     setMode('edit')
   }
 
+  const onDelete = async (id) => {
+    console.log('ASOOS')
+    try {
+      await axios.delete(`/api/users/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      alert('success')
+    }
+    catch (error) {
+      alert('error')
+    }
+  }
+
   const renderContent = () => {
     return fetchedUsers.map((user, index) => {
-      const { username } = user;
+      const { username, id } = user;
       return (
         <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
           <td className="px-6 py-4 text-black">
@@ -50,6 +66,7 @@ const Page = () => {
             </div>
             <div
               className="font-medium text-red-600 dark:text-blue-500 hover:underline flex-1"
+              onClick={() => onDelete(id)}
             >
               Delete
             </div>
@@ -68,12 +85,13 @@ const Page = () => {
   return (
     <>
       <Sidebar />
-      {!isEmpty(fetchedUsers) && <Table
+      {<Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}
         onAddButton={onAddButton}
         setMode={setMode}
         showPaginate={false}
+        isContentAvailable={!isEmpty(fetchedUsers)}
       />}
       <UserModal
         open={userModal}

@@ -59,9 +59,10 @@ const Page = () => {
   return (
     <>
       <Sidebar />
-      {!isEmpty(fetchedComplains) && <Table
+      {<Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}
+        isContentAvailable={!isEmpty(fetchedComplains)}
       />}
     </>
   )

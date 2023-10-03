@@ -1,7 +1,6 @@
 'use client';
 
-import Sidebar from "@/components/Sidebar"
-const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate }) => {
+const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate, isContentAvailable = false }) => {
   const renderPaginate = () => {
     return showPaginate && (
       <nav className="flex items-center justify-between pt-4 bg-white" aria-label="Table navigation">
@@ -52,13 +51,12 @@ const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate }) => {
 
   return (
     <>
-      <Sidebar />
       <div className="p-4 sm:ml-64">
         {renderAddButton()}
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             {renderHeading()}
-            {renderContent()}
+            {isContentAvailable && renderContent()}
             <tbody>
             </tbody>
           </table>
