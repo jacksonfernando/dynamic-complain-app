@@ -74,6 +74,7 @@ const Page = () => {
         onAddButton={onAddButton}
         setMode={setMode}
         isContentAvailable={!isEmpty(fetchedCategories)}
+        showPaginate={true}
       />
       <CategoryModal
         open={categoryModal}

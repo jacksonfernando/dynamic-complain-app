@@ -1,6 +1,6 @@
 'use client';
 
-const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate, isContentAvailable = false }) => {
+const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate, isContentAvailable = false, showAddButton = true }) => {
   const renderPaginate = () => {
     return showPaginate && (
       <nav className="flex items-center justify-between pt-4 bg-white" aria-label="Table navigation">
@@ -35,7 +35,7 @@ const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate, isCont
   }
 
   const renderAddButton = () => {
-    return (
+    return showAddButton && (
       <div>
         <button id="dropdownActionButton"
           data-dropdown-toggle="dropdownAction"

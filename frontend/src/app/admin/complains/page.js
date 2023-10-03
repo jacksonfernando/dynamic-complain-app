@@ -63,6 +63,8 @@ const Page = () => {
         headingsLabel={headingsLabel}
         renderContent={renderContent}
         isContentAvailable={!isEmpty(fetchedComplains)}
+        showPaginate={true}
+        showAddButton={false}
       />}
     </>
   )
