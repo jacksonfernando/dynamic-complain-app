@@ -10,7 +10,6 @@ const ExtraFields = ({ fields, register, errors, remove }) => {
     const { id, value, type, label, options } = field;
     const registerKey = register(`extraFields.${index}.value`, { required: true });
     const customKey = id;
-    console.log(field);
 
     if (type === FILE) {
       return <TextInput

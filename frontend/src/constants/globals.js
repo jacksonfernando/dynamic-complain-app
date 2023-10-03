@@ -10,7 +10,7 @@ const TEXTAREA = "textarea";
 
 const NUMBER = "number";
 
-const COMPLAIN_MS_ENDPOINT = 'http://0.0.0.0:8080/api/v1'
+const COMPLAIN_MS_ENDPOINT = '/api/v1'
 
 const CATEGORIES = [
   {

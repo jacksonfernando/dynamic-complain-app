@@ -1,4 +1,4 @@
-const ExtraFieldDropdown = ({ onChange, id, name, autoComplete, options, additionalProps, value }) => {
+const ExtraFieldDropdown = ({ onChange, id, name, autoComplete, options, additionalProps }) => {
   return (
     <select
       onChange={onChange}

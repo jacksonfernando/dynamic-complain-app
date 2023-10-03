@@ -1,12 +1,12 @@
 import Label from '../Label';
 import TextInput from '../TextInput';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import Cookies from 'js-cookie';
+import { useFieldArray, useForm } from 'react-hook-form';
 import SuccessAlert from '../Alert/SuccessAlert';
 import { useState } from 'react';
-import { CATEGORY_OPTIONS } from '@/constants/globals';
+import { CATEGORIES, CATEGORY_OPTIONS, DROPDOWN } from '@/constants/globals';
 import ExtraFieldDropdown from '../Dropdown/ExtraFieldDropdown';
+import ExtraFieldsCategories from '@/app/admin/categories/ExtraFieldsCategories';
+import CategoryDropdown from '../Dropdown/CategoryDropdown';
 
 const CategoryModal = ({ open, setOpen, defaultValues }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
@@ -17,18 +17,31 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
     )
   }
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'value',
+  })
+
+  const { ref, onBlur, name: typeName } = register('type');
+
   const onSubmit = async (data) => {
     try {
-      const { data: responseData } = await axios.post(`/api/auth/authenticate`, data);
-      Cookies.set('token', responseData.token, { expires: 1 })
-      setSuccessSubmitAlert(true)
-      window.location.replace('/admin')
+      console.log(data)
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const onChangeDropdown = (event) => {
+    console.log(event.target.value);
+    const category = CATEGORY_OPTIONS
+      .find((category) => category.value === event.target.value)
+    if (category.value == DROPDOWN) {
+      append({ fieldName: null, value: null })
     }
   }
 
@@ -53,21 +66,35 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
                     inputType={'text'}
                     name={'label'}
                     autoComplete={'label'}
-                    additionalProps={{ ...register('username', { required: true }) }}
+                    additionalProps={{ ...register('label', { required: true }) }}
                   />
                   {renderErrorText(errors.label, 'Label is required')}
                 </div>
                 <div className='mt-2'>
                   <Label name={'Type'} />
                   <ExtraFieldDropdown
-                    name={'type'}
-                    id={'type'}
-                    onChangeEvent={() => { }}
+                    name={typeName}
+                    id={typeName}
+                    onChange={onChangeDropdown}
                     options={CATEGORY_OPTIONS}
-                    additionalProps={{ ...register('type', { required: true }) }}
+                    additionalProps={{
+                      ref: ref, onBlur: onBlur
+                    }}
                   />
                   {renderErrorText(errors.type, 'Type is required')}
                 </div>
+                {
+                  <div className='mt-2'>
+                    <Label name={'Value'} />
+                    <ExtraFieldsCategories
+                      fields={fields}
+                      register={register}
+                      errors={errors}
+                      remove={remove}
+                    />
+                    {renderErrorText(errors.type, 'Type is required')}
+                  </div>
+                }
               </div>
               <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
                 <button type='submit' className='inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto'>Submit</button>

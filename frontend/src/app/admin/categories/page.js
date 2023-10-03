@@ -55,7 +55,11 @@ const Page = () => {
         renderContent={renderContent}
         onAddButton={onAddButton}
       />}
-      <CategoryModal open={categoryModal} setOpen={setCategoryModal} defaultValues={defaultValues} />
+      <CategoryModal
+        open={categoryModal}
+        setOpen={setCategoryModal}
+        defaultValues={defaultValues}
+      />
     </>
   )
 }
