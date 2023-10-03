@@ -2,15 +2,15 @@ import Label from '../Label';
 import TextInput from '../TextInput';
 import { useFieldArray, useForm } from 'react-hook-form';
 import SuccessAlert from '../Alert/SuccessAlert';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CATEGORY_OPTIONS, DROPDOWN } from '@/constants/globals';
 import ExtraFieldDropdown from '../Dropdown/ExtraFieldDropdown';
 import ExtraFieldsCategories from '@/app/admin/categories/ExtraFieldsCategories';
-import Button from '../Button';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { delay } from 'lodash';
 
-const CategoryModal = ({ open, setOpen, defaultValues }) => {
+const CategoryModal = ({ open, setOpen, defaultValues, mode }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
 
@@ -20,27 +20,49 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
     )
   }
 
-  const { control, register, handleSubmit, formState: { errors } } = useForm({
+  const { setValue, control, register, handleSubmit, formState: { errors } } = useForm({
     defaultValues
   });
 
+
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'value',
+    name: 'value'
   })
+
+  useEffect(() => {
+    const { label, type, value, id } = defaultValues;
+    remove();
+    setValue('id', id);
+    setValue('label', label)
+    setValue('type', type)
+    setValue('value', value)
+  }, [defaultValues])
 
   const { ref, onBlur, name: typeName } = register('type');
 
+
   const onSubmit = async (data) => {
+    const ADD_OPERATION = 'add'
+    data.value = data.type != DROPDOWN ? null : data.value;
     try {
-      console.log('data', data)
       const token = Cookies.get('token')
-      await axios.post('/api/categories', data, {
+      if (mode == ADD_OPERATION) {
+        await axios.post('/api/categories', data, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        setSuccessSubmitAlert(true)
+        return delay(() => setSuccessSubmitAlert(false), 1000);
+      }
+      await axios.put(`/api/categories/${data.id}`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
-      setSuccessSubmitAlert('true')
+      setSuccessSubmitAlert(true)
+      return delay(() => setSuccessSubmitAlert(false), 1000);
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +75,7 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
       setShowAddButton(true);
       return append({ label: null, value: null });
     }
+    setShowAddButton(false);
     remove();
   }
 

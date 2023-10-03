@@ -7,6 +7,7 @@ import { isEmpty } from "lodash";
 import { useEffect, useState } from 'react'
 
 const Page = () => {
+  const [mode, setMode] = useState(null);
   const [defaultValues, setDefaultValues] = useState({ label: null, type: null, value: null });
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [categoryModal, setCategoryModal] = useState(false);
@@ -19,6 +20,11 @@ const Page = () => {
     }
   }, [loading])
 
+  const setOnEdit = (index) => {
+    setDefaultValues(fetchedCategories[index]);
+    setCategoryModal(true);
+    setMode('edit')
+  }
 
   const renderContent = () => {
     return fetchedCategories.map((category, index) => {
@@ -36,8 +42,17 @@ const Page = () => {
             {test}
           </td>
           <td className="px-6 py-4 flex flex-row">
-            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex-1">Edit</a>
-            <a href="#" className="font-medium text-red-600 dark:text-blue-500 hover:underline flex-1">Delete</a>
+            <div
+              className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex-1"
+              onClick={() => setOnEdit(index)}
+            >
+              Edit
+            </div>
+            <div
+              className="font-medium text-red-600 dark:text-blue-500 hover:underline flex-1"
+            >
+              Delete
+            </div>
           </td>
         </tr>
       )
@@ -46,6 +61,8 @@ const Page = () => {
 
   const onAddButton = () => {
     setCategoryModal(!categoryModal)
+    setMode('add')
+    setDefaultValues({ label: null, type: null, value: null })
   }
 
   return (
@@ -55,11 +72,13 @@ const Page = () => {
         headingsLabel={headingsLabel}
         renderContent={renderContent}
         onAddButton={onAddButton}
+        setMode={setMode}
       />}
       <CategoryModal
         open={categoryModal}
         setOpen={setCategoryModal}
         defaultValues={defaultValues}
+        mode={mode}
       />
     </>
   )

@@ -1,6 +1,5 @@
 'use client';
 import Sidebar from "@/components/Sidebar"
-
 const Table = ({ headingsLabel, renderContent, onAddButton }) => {
   const renderPaginate = () => {
     return (
