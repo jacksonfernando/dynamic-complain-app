@@ -23,8 +23,8 @@ const Page = ({ params }) => {
   });
 
   const renderExtraFields = () => {
-    return !isEmpty(data) && data.extraFields.map(field => {
-      return (<div className='col-span-full'>
+    return !isEmpty(data) && data.extraFields.map((field, index) => {
+      return (<div className='col-span-full' key={index}>
         <Label name={field.fieldName} />
         <div className='mt-2'>
           {field.value}
