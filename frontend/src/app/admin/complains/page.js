@@ -19,6 +19,10 @@ const Page = () => {
     }
   });
 
+  const redirectToDetailpage = (index) => {
+    window.location.replace(`/admin/complains/${index}`)
+  }
+
   useEffect(() => {
     if (!loading) {
       setFetchedComplains(data.complains)
@@ -27,9 +31,9 @@ const Page = () => {
 
   const renderContent = () => {
     return fetchedComplains.map((complain, index) => {
-      const { fullName, email, issueDescription } = complain;
+      const { fullName, email, issueDescription, id } = complain;
       return (
-        <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+        <tr onClick={() => redirectToDetailpage(id)} key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
           <td className="px-6 py-4 text-black">
             {fullName}
           </td>
@@ -46,6 +50,7 @@ const Page = () => {
 
   return (
     <>
+      <Sidebar />
       {!isEmpty(fetchedComplains) && <Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}
