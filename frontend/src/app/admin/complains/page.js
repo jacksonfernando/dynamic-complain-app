@@ -10,12 +10,13 @@ const Page = () => {
   const headingsLabel = ['Full Name', 'Email', 'Issue Description', 'Remarks', 'Resolved']
   const [fetchedComplains, setFetchedComplains] = useState([]);
   const token = Cookies.get('token')
-  const { data, loading } = useFetchData(`/api/complains`, {
+  const { data, loading, header, setHeader } = useFetchData(`/api/complains`, {
     headers: {
       'Authorization': `Bearer ${token}`
     },
     params: {
-      limit: 10
+      offset: 0,
+      limit: 5
     }
   });
 
@@ -27,7 +28,7 @@ const Page = () => {
     if (!loading) {
       setFetchedComplains(data.complains)
     }
-  }, [loading])
+  }, [loading, data])
 
   const renderContent = () => {
     return fetchedComplains.map((complain, index) => {
@@ -65,6 +66,9 @@ const Page = () => {
         isContentAvailable={!isEmpty(fetchedComplains)}
         showPaginate={true}
         showAddButton={false}
+        headerToken={true}
+        header={header}
+        setHeader={setHeader}
       />}
     </>
   )

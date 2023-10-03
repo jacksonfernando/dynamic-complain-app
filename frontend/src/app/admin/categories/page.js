@@ -12,13 +12,13 @@ const Page = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [categoryModal, setCategoryModal] = useState(false);
   const headingsLabel = ['Label', 'Type', 'Value', 'Action']
-  const { data, loading } = useFetchData(`/api/categories`, { params: { limit: 10 } });
+  const { data, loading, setHeader, header } = useFetchData(`/api/categories`, { params: { offset: 0, limit: 5 } });
 
   useEffect(() => {
     if (!loading) {
       setFetchedCategories(data.categories)
     }
-  }, [loading])
+  }, [data])
 
   const setOnEdit = (index) => {
     setDefaultValues(fetchedCategories[index]);
@@ -75,6 +75,9 @@ const Page = () => {
         setMode={setMode}
         isContentAvailable={!isEmpty(fetchedCategories)}
         showPaginate={true}
+        setHeader={setHeader}
+        header={header}
+        headerToken={false}
       />
       <CategoryModal
         open={categoryModal}

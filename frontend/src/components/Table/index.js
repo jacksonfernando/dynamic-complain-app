@@ -1,23 +1,55 @@
 'use client';
 
+import Cookies from "js-cookie";
+
 const Table = ({
   headingsLabel,
   renderContent,
   onAddButton,
   showPaginate,
   isContentAvailable = false,
-  showAddButton = true
+  showAddButton = true,
+  setHeader,
+  header,
+  headerToken = false
 }) => {
+  const token = Cookies.get('token')
+
+  const onNextPaginate = () => {
+    const newHeader = {
+      params: { offset: header.params.offset + 1, limit: header.params.limit },
+    }
+    if (headerToken) {
+      newHeader['headers'] = {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    setHeader(newHeader)
+  }
+
+  const onPreviousPaginate = () => {
+    const newHeader = {
+      params: {
+        offset: header.params.offset - 1 < 0 ? 0 : header.params.offset - 1, limit: header.params.limit
+      }
+    }
+    if (headerToken) {
+      newHeader['headers'] = {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    setHeader(newHeader)
+  }
+
   const renderPaginate = () => {
     return showPaginate && (
       <nav className="flex items-center justify-between  px-4 py-4 bg-white" aria-label="Table navigation">
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span class="font-semibold text-gray-900 dark:text-white">1000</span></span>
         <ul className="inline-flex -space-x-px text-sm h-8">
           <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-black-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+            <div href="#" className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-black-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onClick={() => onPreviousPaginate()}>Previous</div>
           </li>
           <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-black-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+            <div href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-black-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onClick={() => onNextPaginate()}>Next</div>
           </li>
         </ul>
       </nav>
