@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.complain.dto.request.RegisterRequestDTO;
 import com.example.complain.entity.User;
 import com.example.complain.service.UserService;
 
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateCategory(@PathVariable long id, @RequestBody User user) {
+    ResponseEntity<?> updateUser(@PathVariable long id, @RequestBody RegisterRequestDTO user) {
         try {
             User updatedUser = userService.updateById(id, user);
             return ResponseEntity.ok(updatedUser);

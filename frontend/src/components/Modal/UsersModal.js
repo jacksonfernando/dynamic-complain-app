@@ -20,19 +20,26 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
     defaultValues
   });
 
+  useEffect(() => {
+    console.log(defaultValues)
+    const { username, id } = defaultValues;
+    setValue('username', username);
+    setValue('id', id);
+  }, [defaultValues])
+
 
   const onSubmit = async (data) => {
     const ADD_OPERATION = 'add'
     const token = Cookies.get('token')
-    const { username, password } = data;
-    console.log({ username, password })
+    const { username, password, id } = data;
+    console.log({ username, password }, id)
     try {
       if (mode == ADD_OPERATION) {
         await axios.post('/api/auth/register', { username, password })
         setSuccessSubmitAlert(true)
         return delay(() => setSuccessSubmitAlert(false), 1000);
       }
-      await axios.put(`/api/users/${data.id}`, data, {
+      await axios.put(`/api/users/${id}`, { username, password }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

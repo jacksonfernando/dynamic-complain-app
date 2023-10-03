@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.complain.dto.request.RegisterRequestDTO;
 import com.example.complain.entity.User;
 import com.example.complain.repository.UserRepository;
 
@@ -25,11 +26,13 @@ public class UserService {
         return userList;
     }
 
-    public User updateById(Long id, User user) throws Exception {
+    public User updateById(Long id, RegisterRequestDTO user) throws Exception {
+        User newUser = new User(
+                user.getUsername(),
+                passwordEncoder.encode(user.getPassword()));
         User foundedUser = userRepository.findById(id).orElseThrow(Exception::new);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setId(foundedUser.getId());
-        return userRepository.save(user);
+        newUser.setId(foundedUser.getId());
+        return userRepository.save(newUser);
     }
 
     public void delete(Long id) throws Exception {
