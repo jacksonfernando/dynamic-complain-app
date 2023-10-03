@@ -16,7 +16,7 @@ const Page = () => {
 
   useEffect(() => {
     if (!loading) {
-      setFetchedCategories(data.categories || CATEGORIES)
+      setFetchedCategories(data.categories)
     }
   }, [loading])
 
@@ -41,7 +41,7 @@ const Page = () => {
           <td className="px-6 py-4">
             {test}
           </td>
-          <td className="px-6 py-4 flex flex-row">
+          <td className="px-6 py-4">
             <div
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex-1"
               onClick={() => setOnEdit(index)}
