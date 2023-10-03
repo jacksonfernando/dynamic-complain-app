@@ -1,9 +1,16 @@
 'use client';
 
-const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate, isContentAvailable = false, showAddButton = true }) => {
+const Table = ({
+  headingsLabel,
+  renderContent,
+  onAddButton,
+  showPaginate,
+  isContentAvailable = false,
+  showAddButton = true
+}) => {
   const renderPaginate = () => {
     return showPaginate && (
-      <nav className="flex items-center justify-between pt-4 bg-white" aria-label="Table navigation">
+      <nav className="flex items-center justify-between  px-4 py-4 bg-white" aria-label="Table navigation">
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span class="font-semibold text-gray-900 dark:text-white">1000</span></span>
         <ul className="inline-flex -space-x-px text-sm h-8">
           <li>
