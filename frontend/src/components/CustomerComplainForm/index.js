@@ -26,7 +26,7 @@ const CustomerComplainForm = () => {
       extraFields: []
     }
   });
-  const { data, loading } = useFetchData(`/api/categories`);
+  const { data, loading } = useFetchData(`/api/categories`, { params: { limit: 10 } });
 
   const { fields, append, remove } = useFieldArray({
     control,

@@ -84,6 +84,19 @@ const CATEGORY_OPTIONS = [
   }
 ]
 
+const CATEGORY_DEFAULT_VALUE = {
+  label: null,
+  value: null
+}
+
+const COMPLAIN_DEFAULT_VALUE = {
+  fullName: '',
+  email: '',
+  issueDescription: '',
+  categories: [],
+  extraFields: []
+}
+
 
 export {
   CATEGORIES,
@@ -94,5 +107,7 @@ export {
   TEXTAREA,
   NUMBER,
   COMPLAIN_MS_ENDPOINT,
-  CATEGORY_OPTIONS
+  CATEGORY_OPTIONS,
+  CATEGORY_DEFAULT_VALUE,
+  COMPLAIN_DEFAULT_VALUE
 }

@@ -1,4 +1,5 @@
 'use client';
+
 import Sidebar from "@/components/Sidebar"
 const Table = ({ headingsLabel, renderContent, onAddButton }) => {
   const renderPaginate = () => {
@@ -33,7 +34,6 @@ const Table = ({ headingsLabel, renderContent, onAddButton }) => {
 
     )
   }
-
 
   const renderAddButton = () => {
     return (
