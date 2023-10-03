@@ -1,15 +1,15 @@
 'use client';
-import Button from "@/components/Button";
+
 import Label from "@/components/Label";
 import Sidebar from "@/components/Sidebar";
-import TextArea from "@/components/TextArea";
-import { FILE } from "@/constants/globals";
 import useFetchData from "@/hooks/useFetchData";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { isEmpty } from "lodash";
-import { useEffect } from "react";
+import { useState } from "react";
 
 const Page = ({ params }) => {
+  const [remarks, setRemarks] = useState('')
   const token = Cookies.get('token')
   const { data, loading } = useFetchData(`/api/complains/${params.id}`, {
     headers: {
@@ -30,6 +30,21 @@ const Page = ({ params }) => {
       </div>
       )
     })
+  }
+
+  const onChangeRemarks = (event) => {
+    setRemarks(event.target.value);
+  }
+
+  const onSubmitRemarks = async () => {
+    await axios.put(`/api/complains/${params.id}`, { ...data, remarks },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      }
+    );
+    alert('Success submitting remarks!');
   }
 
   return (
@@ -61,11 +76,18 @@ const Page = ({ params }) => {
             <div className='col-span-full'>
               <Label name={'Remarks'} />
               <div className='mt-2'>
-                <TextArea name={'remarks'} id={'remarks'} />
+                <textarea
+                  id={'remarks'}
+                  name={'remarks'}
+                  rows="3"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={onChangeRemarks}
+                />
                 <button id="dropdownActionButton"
                   data-dropdown-toggle="dropdownAction"
                   className="mt-2 inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                   type="button"
+                  onClick={() => onSubmitRemarks()}
                 >
                   Submit remark
                 </button>
