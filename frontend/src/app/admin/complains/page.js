@@ -46,7 +46,6 @@ const Page = () => {
 
   return (
     <>
-      <Sidebar />
       {!isEmpty(fetchedComplains) && <Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}

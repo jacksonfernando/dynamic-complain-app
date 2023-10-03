@@ -33,16 +33,28 @@ public class Complain {
     @JdbcTypeCode(SqlTypes.JSON)
     private List<?> extraFields;
 
+    @Column(name = "remarks")
+    private String remarks;
+
     public Complain(long id, String fullName, String email, String issueDescription,
-            List<?> extraFields) {
+            List<?> extraFields, String remarks) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.issueDescription = issueDescription;
         this.extraFields = extraFields;
+        this.remarks = remarks;
     }
 
     public Complain() {
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public long getId() {
