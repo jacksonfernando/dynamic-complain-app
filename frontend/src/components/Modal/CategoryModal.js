@@ -10,7 +10,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { delay } from 'lodash';
 
-const CategoryModal = ({ open, setOpen, defaultValues, mode }) => {
+const CategoryModal = ({ open, setOpen, defaultValues, mode, refetch }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
 
@@ -54,6 +54,7 @@ const CategoryModal = ({ open, setOpen, defaultValues, mode }) => {
           }
         })
         setSuccessSubmitAlert(true)
+        refetch();
         return delay(() => setSuccessSubmitAlert(false), 1000);
       }
       await axios.put(`/api/categories/${data.id}`, data, {
@@ -62,6 +63,7 @@ const CategoryModal = ({ open, setOpen, defaultValues, mode }) => {
         }
       })
       setSuccessSubmitAlert(true)
+      refetch();
       return delay(() => setSuccessSubmitAlert(false), 1000);
     } catch (error) {
       alert('Failed')

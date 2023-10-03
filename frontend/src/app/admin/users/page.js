@@ -35,7 +35,6 @@ const Page = () => {
   }
 
   const onDelete = async (id) => {
-    console.log('ASOOS')
     try {
       await axios.delete(`/api/users/${id}`, {
         headers: {

@@ -44,7 +44,7 @@ public class CategoryService {
             Category savedCategory = categoryRepository.save(category);
             return savedCategory;
         } catch (Exception e) {
-            throw new Exception("Failed to save Category");
+            throw new Exception("Failed to save category");
         }
     }
 
@@ -58,7 +58,7 @@ public class CategoryService {
         try {
             categoryRepository.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("Failed to delete Category");
+            throw new Exception("Failed to delete category");
         }
     }
 }
