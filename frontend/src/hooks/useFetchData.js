@@ -11,7 +11,7 @@ const useFetchData = (endPoint, headers) => {
         const { data: response } = await axios.get(endPoint, headers);
         setData(response);
       } catch (error) {
-        console.error(error)
+        alert('Failed to fetch data')
       }
       setLoading(false);
     };

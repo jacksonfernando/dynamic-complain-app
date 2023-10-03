@@ -21,7 +21,6 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
   });
 
   useEffect(() => {
-    console.log(defaultValues)
     const { username, id } = defaultValues;
     setValue('username', username);
     setValue('id', id);

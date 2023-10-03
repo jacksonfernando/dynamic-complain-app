@@ -64,7 +64,7 @@ const CategoryModal = ({ open, setOpen, defaultValues, mode }) => {
       setSuccessSubmitAlert(true)
       return delay(() => setSuccessSubmitAlert(false), 1000);
     } catch (error) {
-      console.log(error);
+      alert('Failed')
     }
   }
 
