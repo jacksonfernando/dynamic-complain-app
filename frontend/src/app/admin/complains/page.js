@@ -13,6 +13,9 @@ const Page = () => {
   const { data, loading } = useFetchData(`/api/complains`, {
     headers: {
       'Authorization': `Bearer ${token}`
+    },
+    params: {
+      limit: 10
     }
   });
 

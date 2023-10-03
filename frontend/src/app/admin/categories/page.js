@@ -11,7 +11,7 @@ const Page = () => {
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [categoryModal, setCategoryModal] = useState(false);
   const headingsLabel = ['Label', 'Type', 'Value', 'Action']
-  const { data, loading } = useFetchData(`/api/categories`);
+  const { data, loading } = useFetchData(`/api/categories`, { params: { limit: 10 } });
 
   useEffect(() => {
     if (!loading) {

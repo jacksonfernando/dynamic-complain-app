@@ -7,6 +7,8 @@ import { CATEGORY_OPTIONS, DROPDOWN } from '@/constants/globals';
 import ExtraFieldDropdown from '../Dropdown/ExtraFieldDropdown';
 import ExtraFieldsCategories from '@/app/admin/categories/ExtraFieldsCategories';
 import Button from '../Button';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const CategoryModal = ({ open, setOpen, defaultValues }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
@@ -31,7 +33,14 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data)
+      console.log('data', data)
+      const token = Cookies.get('token')
+      await axios.post('/api/categories', data, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      setSuccessSubmitAlert('true')
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +76,7 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
             <div className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
 
               <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
-                {successSubmitAlert && <SuccessAlert message={'Success login!'} />}
+                {successSubmitAlert && <SuccessAlert message={'Success!'} />}
                 <div className='sm:flex sm:items-start justify-center'>
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                     <h3 className='text-base  font-semibold leading-6 text-gray-900' id='modal-title'>Category</h3>
