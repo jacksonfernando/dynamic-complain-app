@@ -1,7 +1,17 @@
+'use client';
+
 import Sidebar from "@/components/Sidebar";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 
 const Page = () => {
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (!token) window.location.replace('/')
+  }, [])
+
   return (
     <>
       <Sidebar />

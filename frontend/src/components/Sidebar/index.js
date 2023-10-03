@@ -1,3 +1,4 @@
+import Cookies from "js-cookie"
 import Link from "next/link"
 
 const Sidebar = () => {
@@ -27,9 +28,12 @@ const Sidebar = () => {
             </div>
           </li>
           <li>
-            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <span className="flex-1 ml-3 whitespace-nowrap">Sign out</span>
-            </a>
+            <div href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <span
+                className="flex-1 ml-3 whitespace-nowrap"
+                onClick={() => { Cookies.remove('token'); window.location.replace('/') }}
+              >Sign out</span>
+            </div>
           </li>
         </ul>
       </div>

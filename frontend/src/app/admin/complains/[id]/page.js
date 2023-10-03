@@ -11,7 +11,9 @@ import { useState } from "react";
 const Page = ({ params }) => {
   const [remarks, setRemarks] = useState('')
   const token = Cookies.get('token')
-  const { data, loading } = useFetchData(`/api/complains/${params.id}`, {
+  if (!token) window.location.replace('/')
+
+  const { data } = useFetchData(`/api/complains/${params.id}`, {
     headers: {
       'Authorization': `Bearer ${token}`
     },

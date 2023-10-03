@@ -15,6 +15,11 @@ const Page = () => {
   const [categoryModal, setCategoryModal] = useState(false);
   const headingsLabel = ['Label', 'Type', 'Value', 'Action']
   const { data, loading, setHeader, header, refetch } = useFetchData(`/api/categories`, { params: { offset: 0, limit: 5 } });
+  const token = Cookies.get('token');
+
+  useEffect(() => {
+    if (!token) window.location.replace('/')
+  }, [])
 
   useEffect(() => {
     if (!loading) {
@@ -29,7 +34,6 @@ const Page = () => {
   }
 
   const onDelete = async (id) => {
-    const token = Cookies.get('token')
     try {
       await axios.delete(`/api/categories/${id}`, {
         headers: {
