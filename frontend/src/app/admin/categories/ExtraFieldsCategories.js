@@ -3,67 +3,69 @@ import TextInput from "@/components/TextInput";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ExtraFieldsCategories = ({ fields, register, errors, remove }) => {
-  const renderInputBaseOnCategory = (field, index) => {
-    const { id, value, type, label, options } = field;
-    const registerKey = register(`extraFields.${index}.value`, { required: true });
-    const customKey = id;
-    return <TextInput
-      key={customKey}
-      name={customKey}
-      id={customKey}
-      value={null}
-      autoComplete={label}
-      inputType={'text'}
-      additionalProps={{ ...registerKey }}
-    />
-  };
-
   const renderErrorText = (error, label) => {
     return error?.type === 'required' && (
       <p className='text-red-600'>{`${label} is required`}</p>
     )
   }
 
-  return fields.map((field, index) => {
-    const { id, label } = field;
-    return (
-      <>
-        <div className="sm:col-span-2" >
-          <Label
-            name={'Field Name'}
-            key={`label-${id}`}
-          />
-          <div className="mt-2">
-            <TextInput
-              key={id}
-              name={'field-name'}
-              inputType={'text'}
-              autoComplete={'field-name'}
-              additionalProps={{ ...register(`extraFields.${index}.fieldName`, { required: true }) }}
+  const renderFieldNameAndValue = () => {
+    return fields.map((field, index) => {
+      const { id, label, value } = field;
+      return (
+        <>
+          <div className="sm:col-span-2" >
+            <Label
+              name={'Dropdown label'}
+              key={`label-${id}`}
             />
-            {renderErrorText(errors?.extraFields?.[index]?.fieldName, 'Field name')}
+            <div className="mt-2">
+              <TextInput
+                key={id}
+                name={'field-name'}
+                value={label}
+                inputType={'text'}
+                autoComplete={'field-name'}
+                additionalProps={{ ...register(`value.${index}.label`, { required: true }) }}
+              />
+              {renderErrorText(errors?.value?.[index]?.label, 'Label')}
+            </div>
           </div>
-        </div>
-        <div className="sm:col-span-3" >
-          <Label
-            name={'Value'}
-            key={`label-${id}`}
-          />
-          <div className="mt-2">
-            {renderInputBaseOnCategory(field, index)}
+          <div className="sm:col-span-3" >
+            <Label
+              name={'Dropdown value'}
+              key={`label-${id}`}
+            />
+            <div className="mt-2">
+              <TextInput
+                key={id}
+                name={id}
+                id={id}
+                value={value}
+                autoComplete={label}
+                inputType={'text'}
+                additionalProps={{ ...register(`value.${index}.value`, { required: true }) }}
+              />
+              {renderErrorText(errors?.value?.[index]?.value, 'Value')}
+            </div>
           </div>
-          {renderErrorText(errors?.extraFields?.[index]?.value, label)}
-        </div>
-        <div className="sm:col-span-1 mt-8" >
-          <IoIosCloseCircleOutline
-            size={40}
-            color="red"
-            onClick={() => remove(index)}
-          />
-        </div>
-      </>
-    )
-  })
+          <div className="sm:col-span-1 mt-8" >
+            <IoIosCloseCircleOutline
+              size={30}
+              color="red"
+              onClick={() => remove(index)}
+            />
+          </div>
+        </>
+      )
+    })
+  }
+
+  return (
+    <>
+      {renderFieldNameAndValue()}
+    </>
+  )
 }
 
 export default ExtraFieldsCategories

@@ -3,13 +3,14 @@ import TextInput from '../TextInput';
 import { useFieldArray, useForm } from 'react-hook-form';
 import SuccessAlert from '../Alert/SuccessAlert';
 import { useState } from 'react';
-import { CATEGORIES, CATEGORY_OPTIONS, DROPDOWN } from '@/constants/globals';
+import { CATEGORY_OPTIONS, DROPDOWN } from '@/constants/globals';
 import ExtraFieldDropdown from '../Dropdown/ExtraFieldDropdown';
 import ExtraFieldsCategories from '@/app/admin/categories/ExtraFieldsCategories';
-import CategoryDropdown from '../Dropdown/CategoryDropdown';
+import Button from '../Button';
 
 const CategoryModal = ({ open, setOpen, defaultValues }) => {
   const [successSubmitAlert, setSuccessSubmitAlert] = useState(false);
+  const [showAddButton, setShowAddButton] = useState(false);
 
   const renderErrorText = (error, label) => {
     return error?.type === 'required' && (
@@ -37,12 +38,24 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
   }
 
   const onChangeDropdown = (event) => {
-    console.log(event.target.value);
     const category = CATEGORY_OPTIONS
       .find((category) => category.value === event.target.value)
     if (category.value == DROPDOWN) {
-      append({ fieldName: null, value: null })
+      setShowAddButton(true);
+      return append({ label: null, value: null });
     }
+    remove();
+  }
+
+  const renderAddButton = () => {
+    return showAddButton && (
+      <div className='mt-5'>
+        <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={() => append({ label: null, value: null })}
+        >
+          Add</button>
+      </div>
+    );
   }
 
   return open && (
@@ -83,8 +96,9 @@ const CategoryModal = ({ open, setOpen, defaultValues }) => {
                   />
                   {renderErrorText(errors.type, 'Type is required')}
                 </div>
+                {renderAddButton()}
                 {
-                  <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+                  <div className='mt-3 grid grid-cols-8 gap-x-6 gap-y-8 sm:grid-cols-6'>
                     <ExtraFieldsCategories
                       fields={fields}
                       register={register}
