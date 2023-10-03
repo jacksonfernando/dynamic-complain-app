@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 
 const Page = () => {
   const [mode, setMode] = useState(null);
-  const [defaultValues, setDefaultValues] = useState({ username: null });
+  const [defaultValues, setDefaultValues] = useState({ username: null, password: null });
   const [fetchedUsers, setFetchedUsers] = useState([]);
   const [userModal, setUserModal] = useState(false);
   const headingsLabel = ['Username', 'Action']
@@ -62,7 +62,7 @@ const Page = () => {
   const onAddButton = () => {
     setUserModal(!userModal)
     setMode('add')
-    setDefaultValues({ username: null })
+    setDefaultValues({ username: null, password: null })
   }
 
   return (

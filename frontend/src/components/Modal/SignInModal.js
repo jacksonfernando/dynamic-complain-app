@@ -25,7 +25,7 @@ const SignInModal = ({ open, setOpen }) => {
   const onSubmit = async (data) => {
     try {
       const { data: responseData } = await axios.post(`/api/auth/authenticate`, data);
-      Cookies.set('token', responseData.token, { expires: 1 })
+      Cookies.set('token', responseData.token)
       setSuccessSubmitAlert(true)
       window.location.replace('/admin')
     } catch (error) {
@@ -66,7 +66,7 @@ const SignInModal = ({ open, setOpen }) => {
                     autoComplete={'password'}
                     additionalProps={{ ...register('password', { required: true, minLength: 5 }) }}
                   />
-                  {renderErrorText(errors.username, 'Password is required and min 5 character')}
+                  {renderErrorText(errors.password, 'Password is required and min 5 character')}
                 </div>
               </div>
               <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>

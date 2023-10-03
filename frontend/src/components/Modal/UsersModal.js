@@ -3,7 +3,6 @@ import TextInput from '../TextInput';
 import { useForm } from 'react-hook-form';
 import SuccessAlert from '../Alert/SuccessAlert';
 import { useEffect, useState } from 'react';
-import { DROPDOWN } from '@/constants/globals';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { delay } from 'lodash';
@@ -22,28 +21,18 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
   });
 
 
-  useEffect(() => {
-    const { username, id } = defaultValues;
-    setValue('id', id);
-    setValue('username', username)
-  }, [defaultValues])
-
-
   const onSubmit = async (data) => {
     const ADD_OPERATION = 'add'
-    data.value = data.type != DROPDOWN ? null : data.value;
+    const token = Cookies.get('token')
+    const { username, password } = data;
+    console.log({ username, password })
     try {
-      const token = Cookies.get('token')
       if (mode == ADD_OPERATION) {
-        await axios.post('/api/categories', data, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+        await axios.post('/api/auth/register', { username, password })
         setSuccessSubmitAlert(true)
         return delay(() => setSuccessSubmitAlert(false), 1000);
       }
-      await axios.put(`/api/categories/${data.id}`, data, {
+      await axios.put(`/api/users/${data.id}`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -51,7 +40,7 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
       setSuccessSubmitAlert(true)
       return delay(() => setSuccessSubmitAlert(false), 1000);
     } catch (error) {
-      console.log(error);
+      alert('Failed!!')
     }
   }
 
@@ -76,21 +65,21 @@ const UserModal = ({ open, setOpen, defaultValues, mode }) => {
                   <Label name={'Username'} />
                   <TextInput
                     inputType={'text'}
-                    name={'label'}
-                    autoComplete={'label'}
+                    name={'username'}
+                    autoComplete={'username'}
                     additionalProps={{ ...register('username', { required: true }) }}
                   />
-                  {renderErrorText(errors.label, 'Username is required')}
+                  {renderErrorText(errors.username, 'Username is required')}
                 </div>
                 <div className='mt-2'>
                   <Label name={'Password'} />
                   <TextInput
                     inputType={'password'}
-                    name={'label'}
-                    autoComplete={'label'}
-                    additionalProps={{ ...register('password ', { required: true }) }}
+                    name={'password'}
+                    autoComplete={'password'}
+                    additionalProps={{ ...register('password', { required: true, minLength: 5 }) }}
                   />
-                  {renderErrorText(errors.label, 'Password is required')}
+                  {renderErrorText(errors.password, 'Password is required')}
                 </div>
               </div>
               <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
