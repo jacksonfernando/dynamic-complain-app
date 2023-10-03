@@ -1,45 +1,45 @@
 'use client';
 import CategoryModal from "@/components/Modal/CategoryModal";
+import UserModal from "@/components/Modal/UsersModal";
 import Sidebar from "@/components/Sidebar"
 import Table from "@/components/Table";
 import useFetchData from "@/hooks/useFetchData"
+import Cookies from "js-cookie";
 import { isEmpty } from "lodash";
 import { useEffect, useState } from 'react'
 
 const Page = () => {
   const [mode, setMode] = useState(null);
-  const [defaultValues, setDefaultValues] = useState({ label: null, type: null, value: null });
-  const [fetchedCategories, setFetchedCategories] = useState([]);
-  const [categoryModal, setCategoryModal] = useState(false);
-  const headingsLabel = ['Label', 'Type', 'Value', 'Action']
-  const { data, loading } = useFetchData(`/api/categories`, { params: { limit: 10 } });
+  const [defaultValues, setDefaultValues] = useState({ username: null });
+  const [fetchedUsers, setFetchedUsers] = useState([]);
+  const [userModal, setUserModal] = useState(false);
+  const headingsLabel = ['Username', 'Action']
+  const token = Cookies.get('token')
+  const { data, loading } = useFetchData(`/api/users`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
 
   useEffect(() => {
     if (!loading) {
-      setFetchedCategories(data.categories)
+      setFetchedUsers(data)
     }
   }, [loading])
 
   const setOnEdit = (index) => {
-    setDefaultValues(fetchedCategories[index]);
-    setCategoryModal(true);
+    setDefaultValues(fetchedUsers[index]);
+    setUserModal(true);
     setMode('edit')
   }
 
   const renderContent = () => {
-    return fetchedCategories.map((category, index) => {
-      const { label, type, value } = category;
-      const test = value && value.reduce((acc, curr) => acc + `label:${curr.label},value:${curr.value}`, '');
+    return fetchedUsers.map((user, index) => {
+      const { username } = user;
       return (
         <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
           <td className="px-6 py-4 text-black">
-            {label}
-          </td>
-          <td className="px-6 py-4">
-            {type}
-          </td>
-          <td className="px-6 py-4">
-            {test}
+            {username}
           </td>
           <td className="px-6 py-4">
             <div
@@ -60,23 +60,24 @@ const Page = () => {
   }
 
   const onAddButton = () => {
-    setCategoryModal(!categoryModal)
+    setUserModal(!userModal)
     setMode('add')
-    setDefaultValues({ label: null, type: null, value: null })
+    setDefaultValues({ username: null })
   }
 
   return (
     <>
       <Sidebar />
-      {!isEmpty(fetchedCategories) && <Table
+      {!isEmpty(fetchedUsers) && <Table
         headingsLabel={headingsLabel}
         renderContent={renderContent}
         onAddButton={onAddButton}
         setMode={setMode}
+        showPaginate={false}
       />}
-      <CategoryModal
-        open={categoryModal}
-        setOpen={setCategoryModal}
+      <UserModal
+        open={userModal}
+        setOpen={setUserModal}
         defaultValues={defaultValues}
         mode={mode}
       />

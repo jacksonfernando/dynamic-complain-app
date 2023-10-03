@@ -1,9 +1,9 @@
 'use client';
 
 import Sidebar from "@/components/Sidebar"
-const Table = ({ headingsLabel, renderContent, onAddButton }) => {
+const Table = ({ headingsLabel, renderContent, onAddButton, showPaginate }) => {
   const renderPaginate = () => {
-    return (
+    return showPaginate && (
       <nav className="flex items-center justify-between pt-4 bg-white" aria-label="Table navigation">
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span class="font-semibold text-gray-900 dark:text-white">1000</span></span>
         <ul className="inline-flex -space-x-px text-sm h-8">
