@@ -7,7 +7,7 @@ import Table from "@/components/Table";
 import { isEmpty } from "lodash";
 
 const Page = () => {
-  const headingsLabel = ['Full Name', 'Email', 'Issue Description']
+  const headingsLabel = ['Full Name', 'Email', 'Issue Description', 'Remarks', 'Resolved']
   const [fetchedComplains, setFetchedComplains] = useState([]);
   const token = Cookies.get('token')
   const { data, loading } = useFetchData(`/api/complains`, {
@@ -31,7 +31,9 @@ const Page = () => {
 
   const renderContent = () => {
     return fetchedComplains.map((complain, index) => {
-      const { fullName, email, issueDescription, id } = complain;
+      const { fullName, email, issueDescription, id, remarks } = complain;
+      const isResolved = remarks != null;
+      const resolvedMessage = isResolved ? 'Resolved' : 'Not resolved';
       return (
         <tr onClick={() => redirectToDetailpage(id)} key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
           <td className="px-6 py-4 text-black">
@@ -42,6 +44,12 @@ const Page = () => {
           </td>
           <td className="px-6 py-4">
             {issueDescription}
+          </td>
+          <td className="px-6 py-4">
+            {remarks}
+          </td>
+          <td className="px-6 py-4">
+            {resolvedMessage}
           </td>
         </tr>
       )
