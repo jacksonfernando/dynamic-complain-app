@@ -1,5 +1,7 @@
 package com.example.complain.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +36,16 @@ public class CategoryController {
             ListCategoryResponseDTO categories = categoryService.findAll(limit, offset);
             return ResponseEntity.ok(categories);
         } catch (Exception e) {
-            System.out.println("EXCEPTION_MESSAGE" + e.getMessage());
+            return ResponseEntity.status(500).body("Failed to fetch all Category posts");
+        }
+    }
+
+    @GetMapping("/all")
+    ResponseEntity<?> fetchCategoriesWithoutPagination() {
+        try {
+            List<Category> categories = categoryService.findAllWithoutPagination();
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to fetch all Category posts");
         }
     }

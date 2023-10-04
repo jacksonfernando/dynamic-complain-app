@@ -35,6 +35,11 @@ public class CategoryService {
         return response;
     }
 
+    public List<Category> findAllWithoutPagination() throws Exception {
+        List<Category> categories = categoryRepository.findAll();
+        return categories;
+    }
+
     public Category getById(Long id) throws Exception {
         return categoryRepository.findById(id).orElseThrow(Exception::new);
     }
