@@ -26,7 +26,7 @@ const CustomerComplainForm = () => {
       extraFields: []
     }
   });
-  const { data, loading } = useFetchData(`/api/categories`, { params: { limit: 10 } });
+  const { data, loading } = useFetchData(`/api/categories/all`);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -37,9 +37,9 @@ const CustomerComplainForm = () => {
 
   useEffect(() => {
     if (!loading) {
-      setFetchedCategories(data.categories || CATEGORIES)
+      setFetchedCategories(data || CATEGORIES)
     }
-  }, [loading])
+  }, [loading, data])
 
 
   const onSubmit = async (data) => {
