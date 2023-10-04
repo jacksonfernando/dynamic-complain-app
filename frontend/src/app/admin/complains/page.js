@@ -10,7 +10,8 @@ const Page = () => {
   const headingsLabel = ['Full Name', 'Email', 'Issue Description', 'Remarks', 'Resolved']
   const [fetchedComplains, setFetchedComplains] = useState([]);
   const token = Cookies.get('token')
-  if (!token) window.location.replace('/')
+
+  if (!token && typeof window !== 'undefined') window.location.replace('/')
 
   const { data, loading, header, setHeader } = useFetchData(`/api/complains`, {
     headers: {
