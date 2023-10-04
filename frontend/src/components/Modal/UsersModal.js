@@ -66,7 +66,7 @@ const UserModal = ({ open, setOpen, defaultValues, mode, refetch }) => {
                 {successSubmitAlert && <SuccessAlert message={'Success!'} />}
                 <div className='sm:flex sm:items-start justify-center'>
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                    <h3 className='text-base  font-semibold leading-6 text-gray-900' id='modal-title'>Category</h3>
+                    <h3 className='text-base  font-semibold leading-6 text-gray-900' id='modal-title'>Users</h3>
                   </div>
                 </div>
                 <div className='mt-2'>
