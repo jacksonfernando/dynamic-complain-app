@@ -18,7 +18,9 @@ const Page = () => {
   const token = Cookies.get('token');
 
   useEffect(() => {
-    if (!token) window.location.replace('/')
+    if (!token && typeof window !== 'undefined') {
+      window.location.replace('/')
+    }
   }, [])
 
   useEffect(() => {
