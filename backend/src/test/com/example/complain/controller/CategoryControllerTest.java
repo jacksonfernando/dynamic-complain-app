@@ -20,4 +20,14 @@ public class CategoryControllerTest {
     public void fetchAllCategory_should_return_status_500_when_failed_to_find_all() {
 
     }
+
+    @Test
+    public void fetchAllCategoryWithoutPagination_should_return_status_200_when_failed_to_find_all_without_pagination() {
+
+    }
+
+    @Test
+    public void fetchAllCategoryWithoutPagination_should_return_status_500_when_failed_to_find_all_without_pagination() {
+
+    }
 }
