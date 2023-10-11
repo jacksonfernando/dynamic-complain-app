@@ -1,0 +1,4 @@
+@SpringBootTest
+public class ComplainControllerTest {
+
+}
