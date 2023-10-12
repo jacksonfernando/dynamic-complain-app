@@ -1,4 +1,4 @@
-package com.example.blog.controller;
+package com.example.complain.controller;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -15,35 +15,35 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.example.blog.dto.request.RegisterRequestDTO;
-import com.example.blog.dto.response.AuthenticationResponseDTO;
-import com.example.blog.service.AuthenticationService;
+import com.example.complain.dto.request.RegisterRequestDTO;
+import com.example.complain.dto.response.AuthenticationResponseDTO;
+import com.example.complain.service.AuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 public class AuthenticationControllerTest {
-    private String token = "eyJhbGciOiJIUzI1NiJ9."
-            + "eyJzdWIiOiJqYWNrc29uIiwiaWF0IjoxNjg2NTQzODA2LCJleHAiOjE2ODY1NDUyNDZ9.og6sxo-"
-            + "BpyOxKiwVTSKMMYDVTieJvRK9lt8oQgRcQbg";
-    private AuthenticationResponseDTO authenticationResponse = new AuthenticationResponseDTO(token);
-    private RegisterRequestDTO authenticationRequest = new RegisterRequestDTO("jackson", "jackson123");
+        private String token = "eyJhbGciOiJIUzI1NiJ9."
+                        + "eyJzdWIiOiJqYWNrc29uIiwiaWF0IjoxNjg2NTQzODA2LCJleHAiOjE2ODY1NDUyNDZ9.og6sxo-"
+                        + "BpyOxKiwVTSKMMYDVTieJvRK9lt8oQgRcQbg";
+        private AuthenticationResponseDTO authenticationResponse = new AuthenticationResponseDTO(token);
+        private RegisterRequestDTO authenticationRequest = new RegisterRequestDTO("jackson", "jackson123");
 
-    private MockMvc mockMvc;
+        private MockMvc mockMvc;
 
-    @InjectMocks
-    private AuthenticationController authenticationController;
+        @InjectMocks
+        private AuthenticationController authenticationController;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @Mock
-    private AuthenticationService authenticationService;
+        @Mock
+        private AuthenticationService authenticationService;
 
-    @BeforeEach
-    public void setup() {
-        objectMapper = new ObjectMapper();
-        mockMvc = MockMvcBuilders.standaloneSetup(this.authenticationController).build();
-    }
+        @BeforeEach
+        public void setup() {
+                objectMapper = new ObjectMapper();
+                mockMvc = MockMvcBuilders.standaloneSetup(this.authenticationController).build();
+        }
 
     @Test
     public void testRegister_should_return_status_201_when_register_successfully() throws Exception {
@@ -84,18 +84,18 @@ public class AuthenticationControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testAuthenticate_should_return_status_500_when_failed_to_authenticate() throws Exception {
-        doThrow(new IllegalArgumentException("Failed to authenticate"))
-                .when(authenticationService)
-                .authenticate(authenticationRequest);
+        @Test
+        public void testAuthenticate_should_return_status_500_when_failed_to_authenticate() throws Exception {
+                doThrow(new IllegalArgumentException("Failed to authenticate"))
+                                .when(authenticationService)
+                                .authenticate(authenticationRequest);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/auth/authenticate")
-                .content(objectMapper.writeValueAsBytes(authenticationRequest))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is5xxServerError());
-    };
+                mockMvc.perform(MockMvcRequestBuilders
+                                .post("/api/v1/auth/authenticate")
+                                .content(objectMapper.writeValueAsBytes(authenticationRequest))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                                .andExpect(status().is5xxServerError());
+        };
 
 }
