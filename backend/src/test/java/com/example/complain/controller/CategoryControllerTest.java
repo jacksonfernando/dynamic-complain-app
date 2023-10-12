@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +29,7 @@ public class CategoryControllerTest {
     ObjectMapper objectMapper;
 
     @Mock
-    CategoryRepository categoryRepository;
+    CategoryService categoryService;
 
     @BeforeEach
     public void setup() {
@@ -36,7 +39,7 @@ public class CategoryControllerTest {
 
     @Test
     public void fetchAllCategory_should_return_status_200_when_success_find_all() {
-
+        when(this.)
     }
 
     @Test
