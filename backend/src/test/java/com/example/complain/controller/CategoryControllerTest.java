@@ -16,13 +16,13 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.complain.entity.Category;
 import com.example.complain.service.CategoryService;
 
 @SpringBootTest
 public class CategoryControllerTest {
-    private Category category = new Category(1, "title", "title", "multifile");
+    private Category category;
 
     private MockMvc mockMvc;
 
@@ -39,6 +39,10 @@ public class CategoryControllerTest {
     public void setup() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(this.categoryController).build();
+        category.setId(1);
+        category.setLabel("label");
+        category.setType("text");
+        category.setValue(null);
     }
 
     // @Test

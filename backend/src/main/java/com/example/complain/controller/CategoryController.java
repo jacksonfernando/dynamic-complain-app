@@ -21,7 +21,7 @@ import com.example.complain.service.CategoryService;
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
-    private CategoryService categoryService;
+    CategoryService categoryService;
 
     @Autowired
     public void setService(CategoryService service) {
