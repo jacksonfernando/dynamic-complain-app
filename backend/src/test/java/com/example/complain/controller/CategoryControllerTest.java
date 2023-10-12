@@ -4,7 +4,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ public class CategoryControllerTest {
     @BeforeEach
     public void setup() {
         objectMapper = new ObjectMapper();
-        mockMvc = MockMvcBuilder.(this.categoryController);
+        mockMvc = MockMvcBuilders.standaloneSetup(this.categoryController).build();
     }
 
     @Test
