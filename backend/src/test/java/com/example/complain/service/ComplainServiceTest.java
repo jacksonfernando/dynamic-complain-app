@@ -1,4 +1,6 @@
+import org.springframework.boot.test.context.SpringBootTest;
+
 @SpringBootTest
-public class ComplainService {
+public class ComplainServiceTest {
 
 }

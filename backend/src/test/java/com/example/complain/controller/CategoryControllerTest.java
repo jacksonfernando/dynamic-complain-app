@@ -2,8 +2,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
@@ -39,7 +42,7 @@ public class CategoryControllerTest {
 
     @Test
     public void fetchAllCategory_should_return_status_200_when_success_find_all() {
-        when(this.)
+
     }
 
     @Test
@@ -63,8 +66,15 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void saveCategory_should_return_status_201_when_success_saving_requets() {
-        when(categoryService.save(null)).thenReturn();
+    public void saveCategory_should_return_status_201_when_success_saving_requets() throws Exception{
+        when(this.categoryService.save(category)).thenReturn(category);
+
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/api/v1/categories")
+        .content(objectMapper.writeValueAsBytes(category))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isCreated());
     }
 
     @Test
