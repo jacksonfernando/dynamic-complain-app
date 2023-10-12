@@ -19,7 +19,7 @@ import com.example.complain.service.UserService;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     public void setService(UserService service) {

@@ -20,7 +20,7 @@ import com.example.complain.service.ComplainService;
 @RestController
 @RequestMapping("/api/v1/complains")
 public class ComplainController {
-    ComplainService complainService;
+    private ComplainService complainService;
 
     @Autowired
     public void setService(ComplainService service) {

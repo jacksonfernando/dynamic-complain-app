@@ -1,7 +1,7 @@
+package com.example.complain;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.example.complain.ComplainApplication;
 
 @SpringBootTest
 public class ComplainApplicationTest {

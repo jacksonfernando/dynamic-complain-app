@@ -28,7 +28,6 @@ import com.example.complain.service.StorageService;
 @RestController
 @RequestMapping("/api/v1/files")
 public class FileUploadController {
-
     private final StorageService storageService;
 
     @Autowired
