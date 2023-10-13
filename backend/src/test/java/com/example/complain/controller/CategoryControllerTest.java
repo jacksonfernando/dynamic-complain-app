@@ -116,6 +116,14 @@ public class CategoryControllerTest {
     @Test
     public void deleteCategory_should_return_status_500_when_failing_delete()
             throws Exception {
+        doThrow(new IllegalArgumentException("Failed to delete by id"))
+                .when(categoryService)
+                .delete(category.getId());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/v1/categories/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is5xxServerError());
 
     }
 }
