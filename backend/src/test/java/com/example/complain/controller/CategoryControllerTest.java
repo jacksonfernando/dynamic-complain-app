@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +46,9 @@ public class CategoryControllerTest {
     // @Test
     // public void fetchAllCategory_should_return_status_200_when_success_find_all()
     // throws Exception {
-
+    // int limit = 5;
+    // int offset = 0;
+    // when(categoryService.findAll(limit, offset));
     // }
 
     // @Test
@@ -99,15 +102,20 @@ public class CategoryControllerTest {
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
 
-    // @Test
-    // public void deleteCategory_should_return_status_200_when_success_delete()
-    // throws Exception {
+    @Test
+    public void deleteCategory_should_return_status_200_when_success_delete()
+            throws Exception {
+        doNothing().when(categoryService).delete(Long.parseLong("1"));
 
-    // }
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/v1/categories/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
-    // @Test
-    // public void deleteCategory_should_return_status_500_when_failing_delete()
-    // throws Exception {
+    @Test
+    public void deleteCategory_should_return_status_500_when_failing_delete()
+            throws Exception {
 
-    // }
+    }
 }
