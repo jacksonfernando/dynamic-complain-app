@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -87,12 +88,16 @@ public class CategoryControllerTest {
         ).andExpect(status().isCreated());
     }
 
-    // @Test
-    // public void
-    // saveCategory_should_return_status_500_when_success_saving_requets() throws
-    // Exception {
+    @Test
+    public void saveCategory_should_return_status_500_when_success_saving_requets() throws Exception {
+        doThrow(new IllegalArgumentException("Failed to save category")).when(categoryService).save(category);
 
-    // }
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/v1/categories")
+                .content(objectMapper.writeValueAsBytes(category))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+    }
 
     // @Test
     // public void deleteCategory_should_return_status_200_when_success_delete()
